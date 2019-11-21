@@ -26,6 +26,7 @@ description: 为国内提供 AdoptOpenJDK 高速下载链接
 | jdk8u232-b09 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg) |
 
 ### JDK 11
+
 | 版本号        | 系统    | 架构 | 安装需求             | 下载链接                                                     |
 | ------------- | ------- | ---- | -------------------- | ------------------------------------------------------------ |
 | jdk-11.0.5+10 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK11U-jdk_x64_linux_hotspot_11.0.5_10.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK11U-jdk_x64_linux_hotspot_11.0.5_10.tar.gz) |
@@ -45,8 +46,8 @@ description: 为国内提供 AdoptOpenJDK 高速下载链接
 
 ## 支持作者
 
-流量有限，请尽量避免高频下载。如果您希望这里提供更多软件的镜像下载，可以点击这里用 QQ 联系我 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=360736041&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:360736041:52" alt="点击这里联系我" title="点击这里联系我"/></a>，也可以直接在 GitHub 上提出 issue，也欢迎各位的捐赠支持。
+流量有限，请尽量避免高频下载。如果您希望这里提供更多软件的镜像下载，可以点击这里用 QQ 联系我 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=360736041&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:360736041:52" alt="点击这里联系我"/></a>，也可以直接在 GitHub 上提出 issue，也欢迎各位的捐赠支持。
 
-![支付宝](img/alipay.png)
+![支付宝](https://www.glavo.org/assets/img/alipay.png)
 
-![微信支付](img/weixinpay.png)
+![微信支付](https://www.glavo.org/assets/img/weixinpay.png)
