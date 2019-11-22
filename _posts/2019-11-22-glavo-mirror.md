@@ -28,7 +28,7 @@ description: 提供常用软件国内下载链接
 | jdk8u232-b09 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.msi](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.msi) |
 | jdk8u232-b09 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg) |
 
-**注意：**AdoptOpenJDK 8 不包含 JavaFX，如果需要 JavaFX，请使用 Azul 的 OpenJDK 构建 Zulu。访问该页面可获取包含 OpenJFX 的 Zulu构建（Zulu 官网下载速度很快，可以直连）： [https://www.azul.com/downloads/zulu-community/?&version=java-8-lts&package=jdk-fx]( https://www.azul.com/downloads/zulu-community/?&version=java-8-lts&package=jdk-fx )
+**注意：**AdoptOpenJDK 8 不包含 JavaFX，需要使用 JavaFX 请下载 [Zulu](#Zulu)。
 
 
 
@@ -48,6 +48,20 @@ description: 提供常用软件国内下载链接
 | jdk-11.0.5+10 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK13U-jdk_x64_linux_hotspot_13.0.1_9.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_linux_hotspot_13.0.1_9.tar.gz) |
 | jdk-11.0.5+10 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK13U-jdk_x64_windows_hotspot_13.0.1_9.msi](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_windows_hotspot_13.0.1_9.msi) |
 | jdk-11.0.5+10 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK13U-jdk_x64_mac_hotspot_13.0.1_9.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_mac_hotspot_13.0.1_9.pkg) |
+
+
+
+### Zulu
+
+Zulu 国内下载速度尚可，这里只提供捆绑了 JavaFX 的 Java 8 发行版下载链接，其他版本请直接访问[官网]( https://www.azul.com/downloads/zulu-community/ )下载。
+
+| 版本号       | 系统    | 架构   | 安装需求            | 下载链接                                                     |
+| ------------ | ------- | ------ | ------------------- | ------------------------------------------------------------ |
+| jdk8u232-b18 | Linux   | x86_64 | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz) |
+| jdk8u232-b18 | Linux   | x86    | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686.tar.gz](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686.tar.gz) |
+| jdk8u232-b18 | Windows | x86_64 | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip) |
+| jdk8u232-b18 | Windows | x86    | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_i686.zip](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-win_i686.zip) |
+| jdk8u232-b18 | MacOS   | x86_64 | OS X 10.10 以上     | [zulu8.42.0.23-ca-fx-jdk8.0.232-macosx_x64.zip](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-macosx_x64.zip) |
 
 
 
