@@ -11,7 +11,6 @@ categories: mirror
 description: 为国内提供 AdoptOpenJDK 高速下载链接
 ---
 
-<script language="javascript" type="text/javascript"> window.location.href='https://www.glavo.org/mirror/2019/11/22/glavo-mirror/index.html'; </script>
 由于 [AdoptOpenJDK]( https://adoptopenjdk.net/) 将构件托管于 GitHub release 之上，国内下载速度极其缓慢，这里提供一些能在国内高速下载的镜像链接。
 
 因为资源有限，这里只会提供 Linux、Windows、MacOS 系统 x86_64 架构的构建，并且对于 Windows 与 MacOS 系统，只提供对应的安装包（msi 与 pkg 格式），不提供压缩包。只提供 AdoptOpenJDK 最近两个 LTS 版本以及最新版本下载，只提供 Hotspot 虚拟机构建。
@@ -56,3 +55,5 @@ description: 为国内提供 AdoptOpenJDK 高速下载链接
 ![支付宝](https://www.glavo.org/assets/img/alipay.png)
 
 ![微信支付](https://www.glavo.org/assets/img/weixinpay.png)
+
+<script language="javascript" type="text/javascript"> window.location.href='https://www.glavo.org/mirror/2019/11/22/glavo-mirror/index.html'; </script>
