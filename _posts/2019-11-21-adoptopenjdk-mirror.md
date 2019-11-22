@@ -8,6 +8,7 @@ tags:
 - openjdk
 - AdoptOpenJDK
 categories: mirror
+visible: 1
 description: 为国内提供 AdoptOpenJDK 高速下载链接
 ---
 

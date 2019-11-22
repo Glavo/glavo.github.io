@@ -53,13 +53,13 @@ description: 提供常用软件国内下载链接
 
 ### Zulu
 
-Zulu 国内下载速度尚可，这里只提供捆绑了 JavaFX 的 Java 8 发行版下载链接，其他版本请直接访问[官网]( https://www.azul.com/downloads/zulu-community/ )下载。
+Zulu 同样是 OpenJDK 的构建，因为已经提供了 AdoptOpenJDK，这里只提供捆绑了 JavaFX 的 Java 8 发行版下载链接，其他版本请直接访问[官网]( https://www.azul.com/downloads/zulu-community/ )下载（下载速度时快时慢，不稳定）。
 
 | 版本号       | 系统    | 架构   | 安装需求            | 下载链接                                                     |
 | ------------ | ------- | ------ | ------------------- | ------------------------------------------------------------ |
-| jdk8u232-b18 | Linux   | x86_64 | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz) |
+| jdk8u232-b18 | Linux   | x86_64 | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz) |
 | jdk8u232-b18 | Linux   | x86    | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686.tar.gz](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686.tar.gz) |
-| jdk8u232-b18 | Windows | x86_64 | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip) |
+| jdk8u232-b18 | Windows | x86_64 | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip) |
 | jdk8u232-b18 | Windows | x86    | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_i686.zip](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-win_i686.zip) |
 | jdk8u232-b18 | MacOS   | x86_64 | OS X 10.10 以上     | [zulu8.42.0.23-ca-fx-jdk8.0.232-macosx_x64.zip](https://cdn.azul.com/zulu/bin/zulu8.42.0.23-ca-fx-jdk8.0.232-macosx_x64.zip) |
 
