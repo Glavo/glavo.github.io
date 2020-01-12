@@ -16,6 +16,20 @@ description: 提供常用软件国内下载链接
 
 ## OpenJDK
 
+**对于一般的用户和开发者，OpenJDK 里首选推荐 [Liberica JDK](https://bell-sw.com/)。Liberica JDK 不仅包含了 JavaFX，还继续为 Windows 以及 Linux 提供 32 位构建，国内裸连下载速度也相当不错（有时候不稳定，等一会就好）。** 
+
+### Liberica JDK （推荐）
+
+建议直接从[Liberica JDK 官网](https://bell-sw.com/)下载。
+
+JDK 8 (LTS)：[Download JDK 8](https://bell-sw.com/java8)
+
+JDK 11 (LTS): [Download JDK 11](https://bell-sw.com/java11)
+
+JDK 13 (Current): [Download JDK 13](https://bell-sw.com/java13)
+
+
+
 ### AdoptOpenJDK
 
 因为资源有限，这里只会提供 Linux、Windows、MacOS 系统 x86_64 架构的构建，并且对于 Windows 与 MacOS 系统，只提供对应的安装包（msi 与 pkg 格式），不提供压缩包。只提供 AdoptOpenJDK 最近两个 LTS 版本以及最新版本下载，只提供 Hotspot 虚拟机构建。
