@@ -101,6 +101,6 @@ Zulu 同样是 OpenJDK 的构建，因为已经提供了 AdoptOpenJDK，这里�
 
 流量有限，请尽量避免高频下载。如果您希望这里提供更多软件的镜像下载，可以点击这里用 QQ 联系我 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=360736041&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:360736041:52" alt="点击这里联系我"/></a>，也可以直接在 GitHub 上提出 issue，也欢迎各位的捐赠支持。
 
-![支付宝](https://www.glavo.org/assets/img/alipay.png)
+![支付宝](https://s2.ax1x.com/2020/02/04/1B9yFK.png)
 
-![微信支付](https://www.glavo.org/assets/img/weixinpay.png)
+![微信支付](https://s2.ax1x.com/2020/02/04/1B9ro6.png)
