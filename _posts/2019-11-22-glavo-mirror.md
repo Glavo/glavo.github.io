@@ -29,7 +29,6 @@ JDK 11 (LTS): [Download JDK 11](https://bell-sw.com/java11)
 JDK 13 (Current): [Download JDK 13](https://bell-sw.com/java13)
 
 
-
 ### AdoptOpenJDK
 
 因为资源有限，这里只会提供 Linux、Windows、MacOS 系统 x86_64 架构的构建，并且对于 Windows 与 MacOS 系统，只提供对应的安装包（msi 与 pkg 格式），不提供压缩包。只提供 AdoptOpenJDK 最近两个 LTS 版本以及最新版本下载，只提供 Hotspot 虚拟机构建。
@@ -63,37 +62,21 @@ JDK 13 (Current): [Download JDK 13](https://bell-sw.com/java13)
 | jdk-11.0.5+10 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK13U-jdk_x64_windows_hotspot_13.0.1_9.msi](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_windows_hotspot_13.0.1_9.msi) |
 | jdk-11.0.5+10 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK13U-jdk_x64_mac_hotspot_13.0.1_9.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_mac_hotspot_13.0.1_9.pkg) |
 
-
-
-### Zulu
-
-Zulu 同样是 OpenJDK 的构建，因为已经提供了 AdoptOpenJDK，这里只提供捆绑了 JavaFX 的 Java 8 发行版下载链接，其他版本请直接访问[官网]( https://www.azul.com/downloads/zulu-community/ )下载（下载速度时快时慢，不稳定）。
-
-| 版本号       | 系统    | 架构   | 安装需求            | 下载链接                                                     |
-| ------------ | ------- | ------ | ------------------- | ------------------------------------------------------------ |
-| jdk8u232-b18 | Linux   | x86_64 | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_x64.tar.gz) |
-| jdk8u232-b18 | Linux   | x86    | glibc 版本 2.5 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-linux_i686.tar.gz) |
-| jdk8u232-b18 | Windows | x86_64 | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-win_x64.zip) |
-| jdk8u232-b18 | Windows | x86    | Windows 2008r2 以上 | [zulu8.42.0.23-ca-fx-jdk8.0.232-win_i686.zip](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-win_i686.zip) |
-| jdk8u232-b18 | MacOS   | x86_64 | OS X 10.10 以上     | [zulu8.42.0.23-ca-fx-jdk8.0.232-macosx_x64.zip](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/Zulu/zulu8.42.0.23-ca-fx-jdk8.0.232-macosx_x64.zip) |
-
-
-
 ## Git for Windows
 
 下载地址来自于[淘宝 NPM 镜像]( https://npm.taobao.org/mirrors/git-for-windows/ )。
 
-版本 v2.24.0 (2019-11-04)
+版本 v2.25.0 (2020-01-13)
 
 ### Git for Windows Setup
 
-* [32-bit Git for Windows Setup](https://npm.taobao.org/mirrors/git-for-windows/v2.24.0.windows.1/Git-2.24.0-32-bit.exe)
-* [64-bit Git for Windows Setup](https://npm.taobao.org/mirrors/git-for-windows/v2.24.0.windows.1/Git-2.24.0-64-bit.exe)
+* [32-bit Git for Windows Setup](https://npm.taobao.org/mirrors/git-for-windows/v2.25.0.windows.1/Git-2.25.0-32-bit.exe)
+* [64-bit Git for Windows Setup](https://npm.taobao.org/mirrors/git-for-windows/v2.25.0.windows.1/Git-2.25.0-64-bit.exe)
 
 ### Git for Windows Portable （"thumbdrive edition"）
 
-* [32-bit Git for Windows Portable](https://npm.taobao.org/mirrors/git-for-windows/v2.24.0.windows.1/PortableGit-2.24.0-32-bit.7z.exe)
-* [64-bit Git for Windows Portable](https://npm.taobao.org/mirrors/git-for-windows/v2.24.0.windows.1/PortableGit-2.24.0-64-bit.7z.exe)
+* [32-bit Git for Windows Portable](https://npm.taobao.org/mirrors/git-for-windows/v2.25.0.windows.1/PortableGit-2.25.0-32-bit.7z.exe)
+* [64-bit Git for Windows Portable](https://npm.taobao.org/mirrors/git-for-windows/v2.25.0.windows.1/PortableGit-2.25.0-64-bit.7z.exe)
 
 
 
