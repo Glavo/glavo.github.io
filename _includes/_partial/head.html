@@ -1,5 +1,14 @@
 <!DOCTYPE HTML>
 <html {% if site.language %}lang="{{ site.language }}"{% endif %}>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?15def04e1d49e5805eeac77ee173255b";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
 <head>
   <meta charset="UTF-8">
     {% assign title = page.title %}
@@ -13,7 +22,6 @@
     {% assign title = lang.tags %}
     {% endif %}
     <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     {% if site.author.name %}
