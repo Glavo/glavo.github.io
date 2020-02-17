@@ -28,20 +28,20 @@ JDK 11 (LTS): [Download JDK 11](https://bell-sw.com/java11)
 
 JDK 13 (Current): [Download JDK 13](https://bell-sw.com/java13)
 
-
 ### AdoptOpenJDK
 
-因为资源有限，这里只会提供 Linux、Windows、MacOS 系统 x86_64 架构的构建，并且对于 Windows 与 MacOS 系统，只提供对应的安装包（msi 与 pkg 格式），不提供压缩包。只提供 AdoptOpenJDK 最近两个 LTS 版本以及最新版本下载，只提供 Hotspot 虚拟机构建。
+下载地址来自于 [github-mirror.bugkiller.org](http://github-mirror.bugkiller.org/)。（请勿在该镜像站输入您的账号密码）
 
 #### JDK 8
 
 | 版本号       | 系统    | 架构 | 安装需求             | 下载链接                                                     |
 | ------------ | ------- | ---- | -------------------- | ------------------------------------------------------------ |
-| jdk8u232-b09 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz) |
-| jdk8u232-b09 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.msi](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.msi) |
-| jdk8u232-b09 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg) |
+| jdk8u242-b08 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz) |
+| jdk8u242-b08 | Windows | x86  | Windows 2008r2 以上  | [OpenJDK8U-jdk_x86-32_windows_hotspot_8u242b08.ms](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x86-32_windows_hotspot_8u242b08.msi) |
+| jdk8u242-b08 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.msi](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.msi) |
+| jdk8u242-b08 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK8U-jdk_x64_mac_hotspot_8u242b08.pkg](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_mac_hotspot_8u242b08.pkg) |
 
-**注意：**AdoptOpenJDK 8 不包含 JavaFX，需要使用 JavaFX 请下载 [Zulu](#Zulu)。
+**注意：**AdoptOpenJDK 8 不包含 JavaFX，需要使用 JavaFX 请下载 [Liberica JDK](https://bell-sw.com/java8)。
 
 
 
@@ -49,18 +49,18 @@ JDK 13 (Current): [Download JDK 13](https://bell-sw.com/java13)
 
 | 版本号        | 系统    | 架构 | 安装需求             | 下载链接                                                     |
 | ------------- | ------- | ---- | -------------------- | ------------------------------------------------------------ |
-| jdk-11.0.5+10 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK11U-jdk_x64_linux_hotspot_11.0.5_10.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK11U-jdk_x64_linux_hotspot_11.0.5_10.tar.gz) |
-| jdk-11.0.5+10 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK11U-jdk_x64_windows_hotspot_11.0.5_10.msi](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK11U-jdk_x64_windows_hotspot_11.0.5_10.msi) |
-| jdk-11.0.5+10 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK11U-jdk_x64_mac_hotspot_11.0.5_10.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK11U-jdk_x64_mac_hotspot_11.0.5_10.pkg) |
+| jdk-11.0.6+10 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK11U-jdk_x64_linux_hotspot_11.0.6_10.tar.gz](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.6%2B10/OpenJDK11U-jdk_x64_linux_hotspot_11.0.6_10.tar.gz) |
+| jdk-11.0.6+10 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK11U-jdk_x64_windows_hotspot_11.0.6_10.msi](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.6%2B10/OpenJDK11U-jdk_x64_windows_hotspot_11.0.6_10.msi) |
+| jdk-11.0.6+10 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK11U-jdk_x64_mac_hotspot_11.0.6_10.pkg](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.6%2B10/OpenJDK11U-jdk_x64_mac_hotspot_11.0.6_10.pkg) |
 
 
 #### JDK 13
 
-| 版本号        | 系统    | 架构 | 安装需求             | 下载链接                                                     |
-| ------------- | ------- | ---- | -------------------- | ------------------------------------------------------------ |
-| jdk-11.0.5+10 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK13U-jdk_x64_linux_hotspot_13.0.1_9.tar.gz](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_linux_hotspot_13.0.1_9.tar.gz) |
-| jdk-11.0.5+10 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK13U-jdk_x64_windows_hotspot_13.0.1_9.msi](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_windows_hotspot_13.0.1_9.msi) |
-| jdk-11.0.5+10 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK13U-jdk_x64_mac_hotspot_13.0.1_9.pkg](https://glavo-mirrors.oss-cn-beijing.aliyuncs.com/AdoptOpenJDK/OpenJDK13U-jdk_x64_mac_hotspot_13.0.1_9.pkg) |
+| 版本号       | 系统    | 架构 | 安装需求             | 下载链接                                                     |
+| ------------ | ------- | ---- | -------------------- | ------------------------------------------------------------ |
+| jdk-13.0.2+8 | Linux   | x64  | glibc 版本 2.12 以上 | [OpenJDK13U-jdk_x64_linux_hotspot_13.0.2_8.tar.gz](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8/OpenJDK13U-jdk_x64_linux_hotspot_13.0.2_8.tar.gz) |
+| jdk-13.0.2+8 | Windows | x64  | Windows 2008r2 以上  | [OpenJDK13U-jdk_x64_windows_hotspot_13.0.2_8.msi](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8/OpenJDK13U-jdk_x64_windows_hotspot_13.0.2_8.msi) |
+| jdk-13.0.2+8 | MacOS   | x64  | OS X 10.10 以上      | [OpenJDK13U-jdk_x64_mac_hotspot_13.0.2_8.pkg](http://github-mirror.bugkiller.org/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8/OpenJDK13U-jdk_x64_mac_hotspot_13.0.2_8.pkg) |
 
 ## Git for Windows
 
