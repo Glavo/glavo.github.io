@@ -44,7 +44,6 @@ JDK 13 (Current): [Download JDK 13](https://bell-sw.com/java13)
 **注意：**AdoptOpenJDK 8 不包含 JavaFX，需要使用 JavaFX 请下载 [Liberica JDK](https://bell-sw.com/java8)。
 
 
-
 #### JDK 11
 
 | 版本号        | 系统    | 架构 | 安装需求             | 下载链接                                                     |
