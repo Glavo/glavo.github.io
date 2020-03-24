@@ -13,4 +13,4 @@ description: 为国内提供 AdoptOpenJDK 高速下载链接
 ---
 
 
-本页面已过期，请[点击此链接](https://www.glavo.org/mirror/2019/11/22/glavo-mirror/#adoptopenjdk) 访问下载站主站获取新的 AdoptOpenJDK
+下载站已转移至单独的页面，请访问：[Glavo 的下载站](https://mirror.glavo.site/#adoptopenjdk)
