@@ -4,7 +4,7 @@ date: 2021-03-06 12:00:00
 tags:
 - JEP
 - Project Valhalla
-categories: 文档翻译
+categories: translate
 description: JEP 401 翻译
 ---
 

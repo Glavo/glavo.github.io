@@ -3,7 +3,7 @@ title: (翻译) freedesktop.org 图标主题规范
 date: 2019-09-22 16:00:00
 tags:
 - freedesktop.org
-categories: 文档翻译
+categories: translate
 description: 图标主题是一组拥有共同观感的图标。用户可以选择希望使用的主题，并让所有应用使用该主题内的图标
 ---
 原文：[freedesktop.org Icon Theme Specification](https://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html#)
