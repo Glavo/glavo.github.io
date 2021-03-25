@@ -84,7 +84,7 @@ share_to: true #enable share-to buttons if true
 
 #### Author information
 author:
-  name: glavo      ## e.g. wuchong Author name
+  name: Glavo      ## e.g. wuchong Author name
   intro_line1:  "欢迎来到喵呜呜的主页，如果对文章有任何疑问，"    ## your introduction on the bottom of the page
   intro_line2:  "欢迎在 GitHub 上提出 issue"  ## the 2nd line
   weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
@@ -93,7 +93,7 @@ author:
   douban:     ## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014
   zhihu: glavo
   email: zjx001202@gmail.com
-  twitter:    ## e.g. jarkwu for https://twitter.com/jarkwu
+  twitter: CattusGlavo   ## e.g. jarkwu for https://twitter.com/jarkwu
   github: glavo
   facebook:   ## e.g. imjark for https://facebook.com/imjark
   linkedin:   ## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014
