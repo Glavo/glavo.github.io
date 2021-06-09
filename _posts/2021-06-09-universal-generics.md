@@ -68,7 +68,7 @@ static int binarySearch(double[] a, double key)
 
 - 为 `Point` 编写比较函数最自然的方式是使用 `Point` 类型的参数。
   但为了使用泛型 `Comparator` 接口，lambda 表达式需要声明 `Point.ref` 类型的参数。
-  （类似地，如果要把这个 `Comparator` 存储到局部变量中，那么变量的类型将为 `Comparator<Point.ref`。）
+  （类似地，如果要把这个 `Comparator` 存储到局部变量中，那么变量的类型将为 `Comparator<Point.ref>`。）
 - 参数类型 `Point.ref` 增加了输入值为 `null` 的可能性，函数需要适当地相应这些输入（可能使用[非空断言](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Objects.html#requireNonNull(T))）。
 - 更重要的是，未来我们希望直接在寄存器中传递*展平的（flattened）* `Point` 值以优化对比较函数的调用。但是引用类型 `Point.ref` 会影响展平值。
 
