@@ -18,4 +18,4 @@ But there will be cake.
 
 ## 编码/解码
 
-我以前在
+我以前在 [更快的字符集解码](2021-10-18-faster-charset-decoding.md)
