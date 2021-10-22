@@ -11,6 +11,8 @@ description: Arrays of Wisdom of the Ancients 翻译
 
 Aleksey Shipilёv, [@shipilev](http://twitter.com/shipilev), aleksey@shipilev.net
 
+感谢 Thanks to Claes Redestad, Brian Goetz, Ilya Teterin, Yurii Lahodiuk, Gleb Smirnov, Tim Ellison, Stuart Marks, Marshall Pierce, Fabian Lange 和其他人的评论与建议！
+
 ## 简介
 
 Java 语言和 JDK 类库有两种不同但相关的方式对元素进行分组：数组和集合。使用其中任意一个都有利有弊，因此在实际程序中都很普遍。
