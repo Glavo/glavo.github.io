@@ -1,5 +1,5 @@
 ---
-title: Arrays of Wisdom of the Ancients
+title: \[翻译] Arrays of Wisdom of the Ancients
 date: 2021-09-22 22:25:00
 tags:
 - JVM

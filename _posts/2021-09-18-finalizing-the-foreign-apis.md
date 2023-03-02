@@ -1,5 +1,5 @@
 ---
-title: 完成 Foreign API
+title: \[翻译] 完成 Foreign API
 date: 2021-09-18 13:11:00
 tags:
 - Project Panama
