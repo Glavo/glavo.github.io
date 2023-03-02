@@ -1,5 +1,5 @@
 ---
-title: (翻译) freedesktop.org 图标主题规范
+title: '[翻译] freedesktop.org 图标主题规范'
 date: 2019-09-22 16:00:00
 tags:
 - freedesktop.org
