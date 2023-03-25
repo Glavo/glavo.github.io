@@ -5,7 +5,7 @@ tags:
   - Java
   - JDK
   - Project Panama
-categories: blog
+categories: mirror
 description: Panama 
 ---
 
