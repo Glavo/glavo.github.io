@@ -5,7 +5,7 @@ tags:
   - Java
   - JDK
   - Project Panama
-categories: mirror
+categories: blog
 description: Panama 
 ---
 
@@ -163,3 +163,43 @@ Panama 不仅让 Java FFI 摆脱需要手动编写 C 代码的束缚，而且有
 
 目前 Panama 仍处于 Preview 阶段，正在积极开发。我非常希望更多人参与对它的试用，并在[邮件列表](https://mail.openjdk.org/mailman/listinfo/panama-dev)(panama-dev@openjdk.org)中反馈自己的体验和遇到的问题，
 这样能够帮助 Panama 在正式定稿前进行更多改进。
+
+
+
+
+
+
+Java 也支持这样的类型推断。ofEntries 签名是：
+
+```java
+static <K, V> Map<K, V> ofEntries(Entry<? extends K, ? extends V>... entries)
+```
+
+K 和 V 都会推断至所有 entry 的公共上界，比如
+
+```java
+Map.ofEntries(entry("a", 10), entry("b", 20.0));
+```
+
+的类型就会被推断为 `Map<String, Number & Comparable<? extends Number & Comparable<?>>>`。
+
+写起来复杂数据结构大概这样：
+
+```java
+var map = Map.ofEntries(
+        entry("name", "commons-io:commons-io:2.11.0"),
+        entry("downloads", Map.ofEntries(
+                entry("artifact", Map.ofEntries(
+                        entry("path", "commons-io/commons-io/2.11.0/commons-io-2.11.0.jar"),
+                        entry("url", "https://libraries.minecraft.net/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar"),
+                        entry("size", 327135),
+                        entry("sha1", "a2503f302b11ebde7ebc3df41daebe0e4eea3689")
+                ))
+        ))
+);
+
+
+Map<String, Map<String, ? extends Comparable<? extends Comparable<?> & java.io.Serializable> & java.io.Serializable>>
+```
+
+也没难看到受不了的程度。
