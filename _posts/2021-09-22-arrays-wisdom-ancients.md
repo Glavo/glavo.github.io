@@ -11,7 +11,7 @@ description: Arrays of Wisdom of the Ancients 翻译
 
 Aleksey Shipilёv, [@shipilev](http://twitter.com/shipilev), aleksey@shipilev.net
 
-感谢 Thanks to Claes Redestad, Brian Goetz, Ilya Teterin, Yurii Lahodiuk, Gleb Smirnov, Tim Ellison, Stuart Marks, Marshall Pierce, Fabian Lange 和其他人的评论与建议！
+感谢 Claes Redestad, Brian Goetz, Ilya Teterin, Yurii Lahodiuk, Gleb Smirnov, Tim Ellison, Stuart Marks, Marshall Pierce, Fabian Lange 和其他人的评论与建议！
 
 ## 简介
 
