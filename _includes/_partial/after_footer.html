@@ -117,7 +117,7 @@ $(document).ready(function(){
 </script>
 {% endif %}
 
-{% if (page.layout == 'post' or page.layout == 'page' or page.layout == 'photo') and !site.jiathis.enable  %}
+{% if (page.layout == 'post' or page.layout == 'page' or page.layout == 'photo') %}
 <script type="text/javascript">
 $(document).ready(function(){
   var $this = $('.share'),
@@ -133,7 +133,6 @@ $(document).ready(function(){
   '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
   '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
   '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
   '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
   '<span title="Share to"></span>'
   ].join('');
