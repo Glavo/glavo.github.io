@@ -8,7 +8,7 @@ categories: translate
 description: Faster Charset Decoding 翻译
 ---
 
-原文链接：[Faster Charset Decoding | Claes Redestad's blog](https://cl4es.github.io/2021/02/23/Faster-Charset-Decoding.html)
+原文链接：[Faster Charset Decoding - Claes Redestad's blog](https://cl4es.github.io/2021/02/23/Faster-Charset-Decoding.html)
 
 最近，我对 OpenJDK 进行了一些小改进，以解决如何将 `byte[]` 转换为 `String` 的问题 —— 
 包括[删除 `StringCoding.Result` 结构](https://bugs.openjdk.java.net/browse/JDK-8259842)和[减少一些遗留的 `CharsetDecoder` 开销](https://bugs.openjdk.java.net/browse/JDK-8261418)。
