@@ -1,5 +1,5 @@
 #### Exclude
-exclude: [".rvmrc", ".rbenv-version", "README.md", "README_en.md", "Rakefile", "changelog.md", "git-push.bat", "git-push.sh", "jekyll-build.sh", "Gemfile", "Gemfile.lock"]
+exclude: [".rvmrc", ".rbenv-version", "README.md", "README_en.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock"]
 
 #### Code Highlighter
 # 'pygments' is unsupported on GitHub Pages now.
@@ -29,7 +29,7 @@ paginate: 20
 
 #### Site
 title : Glavo
-tagline: Glavo 的个人博客
+tagline: Glavo 的博客
 assets: /assets
 url:
 baseurl:

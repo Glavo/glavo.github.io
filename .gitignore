@@ -1,5 +1,5 @@
-/_site/*
-_theme_packages/*
+/_site/
+/_theme_packages/
 
 Thumbs.db
 .DS_Store
@@ -11,4 +11,4 @@ Thumbs.db
 
 *.lock
 Gemfile.lock
-.idea/
+/.idea/
