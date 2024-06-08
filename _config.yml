@@ -1,5 +1,8 @@
 #### Exclude
-exclude: [".rvmrc", ".rbenv-version", "README.md", "README_en.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock"]
+exclude: 
+  - ".ruby-version"
+  - "README.md"
+  - "scripts/"
 
 #### Code Highlighter
 # 'pygments' is unsupported on GitHub Pages now.
