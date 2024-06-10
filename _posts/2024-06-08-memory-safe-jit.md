@@ -5,6 +5,7 @@ tags:
   - JVM
   - GraalVM
 categories: translate
+description: 内存安全的 JIT 编译器
 ---
 
 原文链接：[Writing Truly Memory Safe JIT Compilers](https://medium.com/graalvm/writing-truly-memory-safe-jit-compilers-f79ad44558dd)
