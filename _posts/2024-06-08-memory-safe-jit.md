@@ -1,5 +1,5 @@
 ---
-title: '[翻译] 内存安全的'
+title: '[翻译] 内存安全的 JIT 编译器'
 date: 2024-06-08 21:17:24
 tags:
   - JVM
@@ -179,6 +179,24 @@ Graal 和 Truffle 是一同开发的，尽管他们可以各自独立使用，�
 其中一个版本是可以直接执行的机器码，这是常规的通用解释器；
 另一个版本是经过精心编码的 Graal 的中间表示（IR）。
 IR 介于你编写的源代码与最终执行的机器代码之间（Graal 的 IR 是一个对象图）。
-Graal 还编译了一个 GC，这个 GC 可能是先进成熟的 G1 GC（如果使用 Oracle GraalVM），
+Graal 还会编译一个 GC，这个 GC 可能是先进成熟的 G1 GC（如果使用 Oracle GraalVM），
 也可能是用[纯 Java 编写的更简单的 GC](https://github.com/oracle/graal/tree/master/substratevm/src/com.oracle.svm.core.genscavenge/src/com/oracle/svm/core/genscavenge)（如果使用 GraalVM CE）。
 
+当用户函数变“热”时，Truffle 会在嵌入的 IR 中查找“执行用户函数”节点，并对其进行部分求值。
+求值与解析图 IR 交织在一起，以确保过程尽可能高效——如果某些部分因为不断折叠已经证明其因无法到达而不会被执行，编译器甚至不会对它进行解码或查看。
+这也确保了编译过程中的内存使用率保持在较低水平。
+
+## My only friend, the end
+
+就是这样！这就是 GraalJS 消除这一整类微妙的安全漏洞的方法：因为语言的语义是由内存安全的解释器所定义的，然后再对其进行部分求值，
+所以最后生成的机器码在构造上也是内存安全的。
+
+那么原始博客文章中所提到的 V8 沙盒呢？将指针表示为堆基址的偏移量是一个好主意，[它已经在 GraalVM 本机编译的二进制文件中被使用](https://medium.com/graalvm/isolates-and-compressed-references-more-flexible-and-efficient-memory-management-for-graalvm-a044cc50b67e)。
+然而，这样做是为了提高性能，因为其他内存安全机制意味着无需缓解堆覆盖。
+
+以上内容都不是 JavaScript 独有的，Truffle 的优势也不仅限于安全性和性能。
+事实上，Truffle 会自动为你的语言添加很多功能，
+例如调试（通过 Chrome 调试器的 wire 协议）、与 Java/Kotlin/所有 Truffle 语言互操作、快速的正则表达式引擎、快速的外部函数接口、profiling 工具、堆快照等等。
+Truffle 已经被用于为数十种语言构建三十多个语言虚拟机，其中包含你意想不到的功能的语言，比如 [Apple 最近推出的 Pkl 配置语言](https://pkl-lang.org/index.html)。
+
+如果本文让你产生了了解更多信息的兴趣，请看看[文档](https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/)和这篇关于它如何工作的[技术讲座](https://www.youtube.com/watch?v=pksRrON5XfU)。
