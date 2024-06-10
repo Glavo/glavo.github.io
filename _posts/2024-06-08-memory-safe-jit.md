@@ -11,7 +11,7 @@ description: 内存安全的 JIT 编译器
 原文链接：[Writing Truly Memory Safe JIT Compilers](https://medium.com/graalvm/writing-truly-memory-safe-jit-compilers-f79ad44558dd)
 
 
-上个月 V8 团队发布了一片关于他们所谓的 [V8 沙盒](https://v8.dev/blog/sandbox) 的优秀博客文章。
+上个月 V8 团队发布了一篇关于他们所谓的 [V8 沙盒](https://v8.dev/blog/sandbox) 的优秀博客文章。
 这不是 JavaScript 代码的沙盒——它旨在缓解由 JIT 编译器本身的错误导致的浏览器漏洞。
 这是一项重要的工作，因为他们报告称大多数 Chrome 漏洞都是从 V8 内存安全错误开始的。
 
