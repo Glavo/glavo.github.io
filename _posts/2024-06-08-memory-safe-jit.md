@@ -152,7 +152,7 @@ Object execute() {
 
 我们就这样继续下去。最后，编译器会生成一个与用户的 JavaScript（也可以 Python、C++，或者我们正在实现的任意语言）的语义相匹配的本机函数。
 当特定的 `JavaScriptFunction.execute()` 经过编译后，在解释器调用它时，程序会从解释器转移至本机代码再返回。
-如果您的解释器需要更改一个 `@CompilationFinal` 字段（可能因为程序更改了它的行为导致你所做的乐观假设失效），那么这绝对没问题。
+如果你的解释器需要更改一个 `@CompilationFinal` 字段（可能因为程序更改了它的行为导致你所做的乐观假设失效），那么这绝对没问题。
 Truffle 允许你这样做，它会将程序“去优化”（deoptimize）回解释器。
 去优化（[相关技术讨论](https://www.youtube.com/watch?v=pksRrON5XfU&t=3259s)）是一种高级技术，通常很难安全地实现，
 因为它需要将 CPU 状态映射回解释器状态，而且任何错误都可能被利用（你可以在这看到相关主题）。
@@ -160,11 +160,11 @@ Truffle 允许你这样做，它会将程序“去优化”（deoptimize）回�
 
 ## 为什么它会起作用？
 
-部分求值会让事情更快的原因可能不太明显。
+部分求值会让语言更快的原因可能不太明显。
 
 
 解释器之所以很慢，是因为它们必须做出很多决定。用户的程序可以做任何事情，因此解释器必须不断检查许多可能性，以找出程序在确切的时刻试图做什么。
-因为分支和内存读取对于 CPU 来说很难快速执行，因此整个程序最终会变得很慢。
+因为分支和内存读取对于 CPU 来说很难快速执行，所以整个程序最终会变得很慢。
 这种通过增强的常量折叠编译解释器的技术消除了分支和内存读取。
 在此基础上，Truffle 构建了一套 API，可以轻松地为 JavaScript 或任何有解释器的语言实现高级功能和优化。
 例如，它提供了一个利用假设的简单 API —— 通过生成不处理边缘情况的代码来提升 JIT 编译和执行速度。
@@ -175,13 +175,12 @@ Truffle 允许你这样做，它会将程序“去优化”（deoptimize）回�
 上面我们简单提到了“重新编译”，但却忽略了它是如何实现的。我们说过解释器只是本机代码，对吧？
 
 当解释器通过 native-image 进行 AOT 编译以准备分发给用户时，Graal 编译器会识别出自己正在编译使用 Truffle 的程序。
-Graal 和 Truffle 是一同开发的，尽管他们可以各自独立使用，但将它们一同使用时它们会互相识别并协同工作。
+Graal 和 Truffle 是一同开发的，尽管它们可以各自独立使用，但将它们一同使用时它们会互相识别并协同工作。
 
 当 Graal 注意到自己正在 AOT 编译 Truffle 语言时，它会以几种方式改变行为。
 首先，它将把自己拷贝至输出的程序中。
-然后它会对程序进行静态分析来找到解释器方法，然后存储两个版本的解释器至可执行文件中。
-其中一个版本是可以直接执行的机器码，这是常规的通用解释器；
-另一个版本是经过精心编码的 Graal 的中间表示（IR）。
+然后它会对程序进行静态分析来找到解释器方法，并存储两个版本的解释器至可执行文件中：
+其中一个版本是可以直接执行的机器码，这是常规的通用解释器；另一个版本是经过精心编码的 Graal 的中间表示（IR）。
 IR 介于你编写的源代码与最终执行的机器代码之间（Graal 的 IR 是一个对象图）。
 Graal 还会编译一个 GC，这个 GC 可能是先进成熟的 G1 GC（如果使用 Oracle GraalVM），
 也可能是用[纯 Java 编写的更简单的 GC](https://github.com/oracle/graal/tree/master/substratevm/src/com.oracle.svm.core.genscavenge/src/com/oracle/svm/core/genscavenge)（如果使用 GraalVM CE）。
@@ -199,8 +198,8 @@ Graal 还会编译一个 GC，这个 GC 可能是先进成熟的 G1 GC（如果�
 然而，这样做是为了提高性能，因为其他内存安全机制意味着无需缓解堆覆盖。
 
 以上内容都不是 JavaScript 独有的，Truffle 的优势也不仅限于安全性和性能。
-事实上，Truffle 会自动为你的语言添加很多功能，
-例如调试（通过 Chrome 调试器的 wire 协议）、与 Java/Kotlin/所有 Truffle 语言互操作、快速的正则表达式引擎、快速的外部函数接口、profiling 工具、堆快照等等。
-Truffle 已经被用于为数十种语言构建三十多个语言虚拟机，其中包含你意想不到的功能的语言，比如 [Apple 最近推出的 Pkl 配置语言](https://pkl-lang.org/index.html)。
+事实上，Truffle 会自动[为你的语言添加很多功能](https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/)，
+例如调试（通过 Chrome Debugger’s wire protocol）、与 Java/Kotlin/所有 Truffle 语言互操作、快速的正则表达式引擎、快速的外部函数接口、profiling 工具、堆快照等等。
+Truffle 已经被用于[为数十种语言构建三十多个语言虚拟机](https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/Languages/)，其中包含你意想不到的功能的语言，比如 [Apple 最近推出的 Pkl 配置语言](https://pkl-lang.org/index.html)。
 
 如果本文让你产生了了解更多信息的兴趣，请看看[文档](https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/)和这篇关于它如何工作的[技术讲座](https://www.youtube.com/watch?v=pksRrON5XfU)。
