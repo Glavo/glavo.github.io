@@ -50,12 +50,107 @@ Truffle 是一个 Java 库，可帮助你构建先进的高性能的语言运行
 你需要的只是编写一个普通的解释器。由于解释器的代码被 GC 管理且受到边界检查，恶意的用户代码通过内存安全漏洞来利用它。
 
 如果使用传统的 Java，那么这个过程听起来会很慢——Java 程序本身在被 JIT 编译之前是被解释执行的，我们要解释执行一个解释器。
-但幸运的是，实际并不需要这样，因为基于 Truffle 的语言运行时可以用 Graal 编译器 AOT 编译为机器码，并作为本机可执行文件分发。
+但幸运的是，实际并不需要这样，因为基于 Truffle 的语言运行时可以用 Graal 编译器 AOT 编译为机器码，并作为[本机可执行文件](https://www.graalvm.org/latest/reference-manual/native-image/)分发。
 
 因此，在用户程序启动时，他们的 JavaScript 程序会被一个解释器所解释执行，这个解释器本身是一个普通的二进制可执行文件或者动态库，但仍然能受益于 Java 的安全特性。
 很快，一些方法会变的“热”起来，这时候一些不寻常的事情发生了：Truffle 框架会自动追踪热点函数，并决定安排 JIT 编译编译它们。
-与传统的虚拟机设计不同，你无需编写自己的 JIT 编译器，与把你的解释器转换为本机代码的 Graal 编译器也会把
+与传统的虚拟机设计不同，你无需编写自己的 JIT 编译器，通用的 Graal 编译器不仅用于将你的解释器转换为机器码，它也会自动将你的用户的代码转换为机器码，
+之后的运行过程里程序会在解释器和编译后的机器码之间来回跳转。
+这要归功于一种叫做部分求值（Partial Evaluation）或*第一类二村映射*的特殊技术。
 
-用户的代码将由用于将您的解释器转换为本机代码的相同通用 Graal 编译器自动编译，并且执行将开始在解释器和编译函数之间自动来回切换。这要归功于一种称为部分求值（或第一个 Futamura 投影）的不同寻常的技术。
+---
 
-But unlike in a conventional VM design, you don’t write your own JIT compiler. Instead your user’s code is automatically compiled by the same general-purpose Graal compiler that was used to convert your interpreter to native code, and execution will start automatically switching back and forth between the interpreter and compiled functions. This is possible thanks to an unusual technique called partial evaluation (or the first Futamura projection).
+你可能以前没有接触过二村映射或部分求值，这个听起来很奇怪的东西到底是什么呢？
+
+它核心思想是自动将解释器的代码转换为 JIT 编译器，用以编译用户方法。
+这样语言运行时的开发者无需在两个地方（解释器和手工编写的 JIT）仔细的实现语言语义，只需要实现一个解释器就够了。
+由于解释器是内存安全的，并且在被转换成 JIT 编译器时也保留了解释器语义，因此用户代码被 JIT 后的行为一定能与解释器的行为一致，
+自然而然也是内存安全的。这使得虚拟机很难再出现可被利用的漏洞。
+
+有几个技巧使这成为可能，其中最重要的是一种新的常量形式，它被通过注解引入 Java 中。
+在常规编程中，变量要么是可变的，要么是不可变的。不可变变量用特殊关键字（如 `final` 或 `const`）标记，并且只能在声明处赋值一次。
+常量对编译器来说非常友好，因为它们可以被折叠，这意味着对它们的引用可以直接替换为它们的值。
+考虑以下代码：
+
+```java
+class Example {
+    private static final int A = 1;
+    private static final int B = 2;
+
+    static int answer() {
+        return A - B;
+    }
+
+    static String doSomething() {
+        if (answer() < 0) 
+            return "OK" 
+        else 
+            throw new IllegalStateException();
+    }
+}
+```
+
+很容易看出 `answer()` 方法将始终返回相同的数字。
+一个优秀的编译器会把 `1` 和 `2` 带入到表达式中得到 `return 1 -2`，然后提前计算表达式的结果。
+随后，编译器会内联对 `answer` 的所有调用（也就是把它的实现复制粘贴到所有调用处），
+用 `-1` 替换所有调用，从而消除调用方法的开销。
+这又可能触发更多常量折叠，比如对于 `doSomething()` 方法，编译器会证明它永远不会抛出异常，并将 `else` 分支完全删除。
+在完成这步后，对 `doSomething` 的调用也可以简单地被替换为 `"OK"`，以此类推。
+
+这很巧妙，但每个编译器都能做到这点……只要在编译时知道常量值即可。
+Truffle 通过引入被称为编译时不可变（compilation final）的第三类常量来改变限制。
+如果像下面这样在解释器中声明一个变量：
+
+```java
+@CompilationFinal private int a = 1;
+```
+
+根据访问的时机不同，它的常量性会发生改变。
+对于解释器内部而言，它是可变的。你可以使用此类变量实现解释器。
+你可以在加载用户程序时设置它们，也可以在程序运行时设置它们。
+一旦用户脚本中的函数变“热”，Truffle 将与 Graal 编译器一起重新编译与用户代码相对应的解释器部分，此时 `a` 将被视为常量，即等价于字面量 `1`。
+
+这适用于任何类型的数据，包括复杂的对象。考虑以下经过高度简化的伪代码：
+
+```java
+import com.oracle.truffle.api.nodes.Node;
+
+class JavaScriptFunction extends Node {
+    @CompilationFinal Node[] statements;
+
+    Object execute() {
+        for (var statement : statements) statement.execute();
+    } 
+}
+```
+
+这种类经常出现在经典的 AST 解释器中。其中 `statements` 数组被标记为编译时不可变。
+首次加载程序时，我们可以用一些代表用户 JavaScript 函数中语句的对象初始化该数组，因为这个数组是可变的。
+当这个对象所表示的函数变“热”了，Truffle 将启动对 `execute()` 方法的特殊编译，其中 Graal 会隐式地将 `this` 视为编译时不可变的。
+由于该对象被视为常量，因此 `this.statements` 也可以被视为常量，它将被替换为解释器堆上特定 `JavaScriptFunction` 对象中字段的实际内容，
+从而使编译器能够把 `execute` 内的循环展开成这样：
+
+
+```java
+Object execute() {
+    this.statements[0].execute();
+    this.statements[1].execute();
+    this.statements[2].execute();
+}
+```
+
+这里 `Node` 是一个超类，`execute()` 是虚函数，但这并不重要。
+由于 `statements` 是编译时不可变的，其中的各个对象也会被常量折叠，因此可以对 `Node` 的 `execute` 方法进行去虚化（将其解析为实际的具体类型），然后它们也可以继续内联。
+
+我们就这样继续下去。最后，编译器会生成一个与用户的 JavaScript（也可以 Python、C++，或者我们正在实现的任意语言）的语义相匹配的本机函数。
+当特定的 `JavaScriptFunction.execute()` 经过编译后，在解释器调用它时，程序会从解释器转移至本机代码再返回。
+如果您的解释器需要更改一个 `@CompilationFinal` 字段（可能因为程序更改了它的行为导致你所做的乐观假设失效），那么这绝对没问题。
+Truffle 允许你这样做，它会将程序“去优化”（deoptimize）回解释器。
+去优化（[相关技术讨论](https://www.youtube.com/watch?v=pksRrON5XfU&t=3259s)）是一种高级技术，通常很难安全地实现，
+因为它需要将 CPU 状态映射回解释器状态，而且任何错误都可能被利用（你可以在这看到相关主题）。
+但是你不必动手实现这些，这一切都是由 Truffle 为你完成的。
+
+---
+
+## 为什么它会起作用？
+
