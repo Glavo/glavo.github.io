@@ -10,7 +10,9 @@ categories: translate
 原文链接：[Writing Truly Memory Safe JIT Compilers](https://medium.com/graalvm/writing-truly-memory-safe-jit-compilers-f79ad44558dd)
 
 
-Last month the V8 team published an excellent blog post on what they call [the V8 Sandbox](https://v8.dev/blog/sandbox). This isn’t a sandbox for your JavaScript code — it’s intended to mitigate browser exploits caused by bugs in the JIT compiler itself. That’s important work because they report that most Chrome exploits start with a V8 memory safety bug.
+上个月 V8 团队发布了一片关于他们所谓的 [V8 沙盒](https://v8.dev/blog/sandbox) 的优秀博客文章。
+这不是 JavaScript 代码的沙盒——它旨在缓解由 JIT 编译器本身的错误导致的浏览器漏洞。
+这是一项重要的工作，因为他们报告称大多数 Chrome 漏洞都是从 V8 内存安全错误开始的。
 
 V8 是用 C++ 编写的，因此这些错误似乎是因为使用内存不安全的语言所导致的。
 但不幸的是，实际情况比这更加复杂。为什么呢？V8 团队解释道：
