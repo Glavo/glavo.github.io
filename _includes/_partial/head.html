@@ -31,7 +31,7 @@
     {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
     <!--<%- open_graph({twitter_id: theme.author.twitter, google_plus: theme.author.google_plus}) %>-->
 
-    <meta name="description" content="page.description">
+    <meta name="description" content="{{ page.description }}">
     {% if page.layout == 'post' %}
     <meta property="og:type" content="article">
     {% else %}
