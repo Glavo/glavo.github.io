@@ -61,6 +61,7 @@ widgets:
 - rss
 ## provide seven widgets:github-card,category,tag,rss,archive,tagcloud,links,weibo,douban
 
+future: true
 
 #### RSS
 rss: /atom.xml ## RSS address.
