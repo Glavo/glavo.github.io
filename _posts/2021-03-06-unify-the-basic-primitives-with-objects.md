@@ -6,6 +6,7 @@ tags:
 - Project Valhalla
 categories: translate
 description: JEP 402 翻译
+excerpt: JEP 402：统一基本值与对象
 ---
 
 **建议阅读前置提案（[JEP 草案：原始对象](https://zhuanlan.zhihu.com/p/354841176)）后阅读。**

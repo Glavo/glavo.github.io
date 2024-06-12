@@ -14,5 +14,7 @@ date: $_time
 tags:
   - 
 categories: blog
+description:
+excerpt:
 ---
 " > $_file_name
