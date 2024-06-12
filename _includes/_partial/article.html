@@ -7,13 +7,17 @@
     <div class="article-content">
         {% if item.excerpt and index %}
         {{ item.excerpt }}
+        {% elsif item.description and index %}
+        {{ item.description }}
         {% else %}
         {{ item.content }}
         {% endif %}
         
         <p class="article-more-link">
           {% if item.excerpt and index and site.index.excerpt_link %}
-            <a href="{{ site.baseurl }}{{ item.url }}#more">{{ site.index.excerpt_link }}</a>
+            <a href="{{ site.baseurl }}{{ item.url }}">{{ site.index.excerpt_link }}</a>
+          {% elsif item.description and index and site.index.excerpt_link %}
+            <a href="{{ site.baseurl }}{{ item.url }}">{{ site.index.excerpt_link }}</a>
           {% endif %}
        </p>
     </div>

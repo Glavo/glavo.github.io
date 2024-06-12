@@ -15,6 +15,5 @@ tags:
   - 
 categories: blog
 description:
-excerpt:
 ---
 " > $_file_name
