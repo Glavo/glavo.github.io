@@ -1974,7 +1974,7 @@ footer{
 .copyright{
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
-    font-family:"covered_by_your_graceregular";
+    font-family:inherit;
     width:100%;
     color:#fff;
     text-align:center;
