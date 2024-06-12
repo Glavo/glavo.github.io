@@ -170,15 +170,6 @@ var disqus_shortname = '{{ site.disqus_shortname }}';
 }());
 </script>
 {% endif %}
-{% if site.yungentie_productkey and page.layout == 'default' %}
-<!-- JavaScript 配置 -->
-<script>var yunModuleEnv = true;</script>
-<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-<script>
-  var yunTieProductKey = "{{ site.yungentie_productkey }}";
-  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
-</script>
-{% endif %}
 
 <!--
 {% if page.layout == 'tags' or page.layout == 'categories' %}
