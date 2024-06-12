@@ -37,7 +37,8 @@ url:
 baseurl:
 
 #### Language
-language: zh-CN    ## blog site languages: en, zh-CN, zh-TW, de
+## blog site languages: en, zh-CN, zh-TW, de
+language: zh-CN
 
 #### Menu
 menu:
