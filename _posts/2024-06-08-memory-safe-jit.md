@@ -1,11 +1,11 @@
 ---
-title: '[翻译] 内存安全的 JIT 编译器'
+title: '[翻译] 编写真正内存安全的 JIT 编译器'
 date: 2024-06-08 21:17:24
 tags:
   - JVM
   - GraalVM
 categories: translate
-description: 内存安全的 JIT 编译器
+description: 如何消除浏览器漏洞的主要来源
 ---
 
 原文链接：[Writing Truly Memory Safe JIT Compilers](https://medium.com/graalvm/writing-truly-memory-safe-jit-compilers-f79ad44558dd)
