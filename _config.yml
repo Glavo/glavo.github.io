@@ -76,8 +76,8 @@ banner_img: #img/banner.jpg ## size:1920px*200px+. Banner Picture
 
 #### index post is expanding or not
 index:
-  expand: true           ## default is unexpanding,so you can only see the short description of each post.
-  excerpt_link: Read More
+  expand: false           ## default is unexpanding,so you can only see the short description of each post.
+  excerpt_link: 查看全文
 
 close_aside: false  #close sidebar in post page if true
 mathjax: true      #enable mathjax if true
