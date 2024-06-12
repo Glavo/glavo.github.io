@@ -1149,14 +1149,6 @@ footer.article-footer{
     background:#c64d3e;
     text-shadow:0 1px #a13c2f
 }
-.article-share-qrcode:before{
-    font-family:"fontdiao" !important;
-    content:"\f132"
-}
-.article-share-qrcode:hover{
-    background:#49ae0f;
-    text-shadow:0 1px #3a8b0c
-}
 .article-back-to-top:before{
     content:"\f062"
 }

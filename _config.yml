@@ -3,6 +3,7 @@ exclude:
   - ".ruby-version"
   - "README.md"
   - "scripts/"
+  - ".idea/"
 
 #### Code Highlighter
 # 'pygments' is unsupported on GitHub Pages now.
