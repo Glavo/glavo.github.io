@@ -947,7 +947,7 @@ article .article-content ol li{
     list-style-type:decimal
 }
 article .article-content dl dt{
-    font-weight:blod
+    font-weight:bold
 }
 article .article-content ul li>code,article .article-content ol li>code,article .article-content p code,article .article-content strong code,article .article-content em code,article .article-content table th>code,article .article-content table td>code{
     font-family:Monaco,Menlo,Consolas,Courier New,monospace;
