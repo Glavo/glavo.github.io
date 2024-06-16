@@ -282,7 +282,7 @@ example.field = null; // OK
 
 上面的例子中，`NullChannelExample` 的实际布局可能是下面这样：
 
-```java
+```cpp
 struct NullChannelExample {
     ObjectHeader header;
     
