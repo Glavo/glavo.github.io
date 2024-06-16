@@ -532,7 +532,7 @@ class NullRestrictedExample {
 
 ### `LooselyConsistentValue`
 
-由于维护一致性的代价可能过于高昂。有些类并不需要维护如此强的一致性，它们可以通过实现 `LooselyConsistentValue` 接口，主动声明放弃一致性，此时 JVM 会不再用昂贵的手段维护此类型实例的一致性，从而
+由于维护一致性的代价可能过于高昂。有些类并不需要维护如此强的一致性，它们可以通过实现 `LooselyConsistentValue` 接口，主动声明放弃一致性，此时 JVM 会不再用昂贵的手段维护此类型实例的一致性。
 
 ## 结语
 
