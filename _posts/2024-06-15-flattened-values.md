@@ -328,7 +328,7 @@ class BoolNullChannelExample {
 
 其中 `BoolNullChannelExample` 的内存布局类似这样：
 
-```java
+```cpp
 struct BoolNullChannelExample {
     ObjectHeader header;
     
