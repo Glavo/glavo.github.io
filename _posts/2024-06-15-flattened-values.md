@@ -12,7 +12,7 @@ OpenJDK 的 Project Valhalla 正在将值类型引入 Java，通过允许用户�
 
 ## 值类
 
-在介绍值对象的布局之前，先让我快速给介绍一下 Valhalla 中的值类。如果你对 Valhalla 已经有所了解，可以跳过这一小节。
+在介绍值对象的布局之前，先让我快速介绍一下 Valhalla 中的值类。如果你对 Valhalla 已经有所了解，可以跳过这一小节。
 
 Valhalla 中的值类是以 `value` 这个上下文关键字所修饰的类：
 
