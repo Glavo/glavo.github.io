@@ -510,4 +510,36 @@ class NullRestrictedExample {
 
 由于 `final` 字段无法被修改，它永远不会出现一致性问题，JVM 不需要做任何额外措施。
 
-(TODO)
+### 原子操作
+
+对于小于 64 位的结构，我们可以考虑把它对齐到 1/2/4/8 字节，在寄存器中将它组装/拆解，并原子地读写它，从而维护一致性。
+
+部分平台支持对更大（128 位甚至更大）数据的原子读写，而 JVM 在这些平台上可能会为更大的结构体通过原子读写保证一致性。
+
+### 使用锁
+
+使用锁是实现一致性的一种方案。
+
+通常来说，使用锁可能难以保证高性能，但有时候它相比其他方案更可取。
+
+一个锁可以由几个值对象成员共享。对于 ABA 数组，可以考虑每个块共享一个锁。
+
+### 外部空通道的一致性
+
+通过外部空通道实现的可空值类型存在一致性问题。
+
+这里有一个特别值得注意的问题：值类型字段被设置为 `null` 时，JVM 为了性能可以只更新空通道，不清空值对象的其他字段，后续可以由 GC 对其中的引用进行清扫；但如果随后重新将此字段设置为非空值，那么一定要注意对值的更新顺序以及插入屏障，保证原本被 `null` 所覆盖的值不可能“复活”。
+
+### `LooselyConsistentValue`
+
+由于维护一致性的代价可能过于高昂。有些类并不需要维护如此强的一致性，它们可以通过实现 `LooselyConsistentValue` 接口，主动声明放弃一致性，此时 JVM 会不再用昂贵的手段维护此类型实例的一致性，从而
+
+## 结语
+
+如果你想了解 Valhalla 的更多信息，可以看看这些资料：
+
+* 本文主要参考的资料来源：[encodings for flattened heap values - John Rose & Valhalla team](https://cr.openjdk.org/~jrose/values/flattened-values.html#maintain-nullity-consistency-with-care)
+* 更多关于准空值的信息：[JDK-8326861: quasinulls: sentinel values that encode null-adjacent Valhalla value states](https://bugs.openjdk.org/browse/JDK-8326861)
+* 更多关于一致性的讨论：[loose consistency - John Rose & Valhalla team](https://cr.openjdk.org/~jrose/values/loose-consistency.html)
+* 值类型的 JEP 草案：[JEP 401: Value Classes and Objects (Preview)](https://openjdk.org/jeps/401)
+* 不可空值类型的 JEP 草案：[JEP draft: Null-Restricted Value Class Types (Preview)](https://openjdk.org/jeps/8316779)
