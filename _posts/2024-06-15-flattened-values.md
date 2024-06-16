@@ -468,7 +468,7 @@ struct LongArray {
     struct {
         jbyte null_channels[4];
         jlong elements[4];
-    } blocks[(length % 4) ? length / 4 + 1 : length / 4;];
+    } blocks[(length + 3) / 4];
 };
 ```
 
