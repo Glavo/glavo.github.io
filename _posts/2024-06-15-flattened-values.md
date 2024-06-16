@@ -32,7 +32,7 @@ public value class MyClass {
 
 因为这些特点，JVM 能够更自由的排布对象，减少装箱，从而优化性能内存占用。
 
-## 主要难题
+## 主要问题
 
 在 JVM 为值对象优化内存布局时，有两个问题我们需要特别考虑：一致性和空引用（`null`）。
 
@@ -269,7 +269,7 @@ Valhalla 的值类型方案也支持在展平值对象的同时支持 `null`，�
 value record NameAndValue(String name, long value) {}
 
 class NullChannelExample {
-  R field; // OK!
+    R field; // OK!
 }
 
 var example = new NullChannelExample();
