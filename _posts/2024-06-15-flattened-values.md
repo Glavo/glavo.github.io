@@ -8,7 +8,7 @@ categories: blog
 description: 'Java 值对象的内存布局'
 ---
 
-OpenJDK 的 Project Valhalla 正在将值类型引入 Java，通过允许用户声明值类（value class），使 JVM 能够更自由的排布对象。这篇文章将会介绍值对象的内存布局。
+OpenJDK 的 Project Valhalla 正在将值类型引入 Java，通过允许用户声明值类（value class），使 JVM 能够更自由的排布对象。这篇文章将会介绍值对象的内存布局的可选方案。
 
 ## 值类
 
