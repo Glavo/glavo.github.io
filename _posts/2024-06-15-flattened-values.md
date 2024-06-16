@@ -153,7 +153,7 @@ struct OtherClass {
 
 ### 熔化重组字段
 
-直接去除对象头是一种简单的实现方式，但并不总是最高效的。JVM 可以将一个对象中包含的值对象的成员全部“熔化”，拆散成一个个的字段，然后再重新组织它们。
+直接去除对象头是一种简单的实现方式，但并不总是最高效的。JVM 可以选择将一个对象中包含的值对象的成员全部“熔化”，拆散成一个个的字段，然后再重新组织它们。
 
 比如对于这样的代码：
 
@@ -295,7 +295,7 @@ struct NullChannelExample {
 };
 ```
 
-可以看到，JVM 在展平 `field` 时，自动在其中插入了一个 `null_channel` 字段，这个字段就是空通道。
+可以看到，JVM 在展平 `field` 时可以自动在其中插入一个 `null_channel` 字段，这个字段就是空通道。
 
 `field.null_channel` 为 `0` 时，`field` 的其他字段都会被忽略，它的值在 Java 中等于 `null`。
 
@@ -538,7 +538,7 @@ class NullRestrictedExample {
 
 如果你想了解 Valhalla 的更多信息，可以看看这些资料：
 
-* 本文主要参考的资料来源：[encodings for flattened heap values - John Rose & Valhalla team](https://cr.openjdk.org/~jrose/values/flattened-values.html#maintain-nullity-consistency-with-care)
+* 本文主要参考的资料来源：[encodings for flattened heap values - John Rose & Valhalla team](https://cr.openjdk.org/~jrose/values/flattened-values.html)
 * 更多关于准空值的信息：[JDK-8326861: quasinulls: sentinel values that encode null-adjacent Valhalla value states](https://bugs.openjdk.org/browse/JDK-8326861)
 * 更多关于一致性的讨论：[loose consistency - John Rose & Valhalla team](https://cr.openjdk.org/~jrose/values/loose-consistency.html)
 * 值类型的 JEP 草案：[JEP 401: Value Classes and Objects (Preview)](https://openjdk.org/jeps/401)
