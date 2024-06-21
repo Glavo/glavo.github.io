@@ -44,7 +44,7 @@ Leyden 项目优化了 Java 程序的启动时间、预热时间以及资源占�
 
 首先，请从[下载页面](https://jdk.java.net/leyden/)下载 Leyden 项目的 EA 构建。我也把它们上传到了百度网盘，如果大陆地区访问不畅或者无法访问可以尝试从这里下载：[Leyden - 百度网盘](链接：https://pan.baidu.com/s/1mf5pMvisoU921O3rntr-hg?pwd=0000)。
 
-作为演示，OpenJDK 提供了一个简单的基准测试：[JavacBenchApp.java](JavacBenchApp.java)。此基准测试使用 `javac` 编译一些 Java 源文件。
+作为演示，OpenJDK 提供了一个简单的基准测试：[JavacBenchApp.java](/assets/posts/2024-06-21-leyden-ea1-release-notes/JavacBenchApp.java)。此基准测试使用 `javac` 编译一些 Java 源文件。
 
 在下载了上面的基准后，我们先将它编译打包成 JAR 文件：
 
