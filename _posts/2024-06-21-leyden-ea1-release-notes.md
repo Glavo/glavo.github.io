@@ -15,9 +15,7 @@ Leyden 项目优化了 Java 程序的启动时间、预热时间以及资源占�
 
 ## 概述
 
-此 EA 版本基于 Leyden 项目的“premain”原型。该原型包含很多优化，这些优化将工作从运行时转移到了应用程序的实验性运行中，这被称为**训练运行（training run）**。
-
-在训练运行过程中，我们提前计算了各种信息，而且会根据在此阶段对程序行为的观察，将字节码提前编译为机器码。
+此 EA 版本基于 Leyden 项目的“premain”原型。该原型包含很多优化，这些优化将工作从运行时转移到了应用程序的实验性运行中，这被称为**训练运行（training run）**。 在训练运行过程中，JVM 提前计算了各种信息，而且会根据在此阶段对程序行为的观察，将字节码提前编译为机器码。
 
 此原型包含以下优化功能，通过 `-XX:CacheDataStore` 选项能够将这些功能全部启用，不需要再单独添加这些选项；未来 JVM 可能会默认启用它们。
 
@@ -42,7 +40,7 @@ Leyden 项目优化了 Java 程序的启动时间、预热时间以及资源占�
 
 ## 尝试 Leyden
 
-首先，请从[下载页面](https://jdk.java.net/leyden/)下载 Leyden 项目的 EA 构建。我也把它们上传到了百度网盘，如果大陆地区访问不畅或者无法访问可以尝试从这里下载：[Leyden - 百度网盘](链接：https://pan.baidu.com/s/1mf5pMvisoU921O3rntr-hg?pwd=0000)。
+首先，请从[下载页面](https://jdk.java.net/leyden/)下载 Leyden 项目的 EA 构建。我也把它们上传到了百度网盘，如果大陆地区访问不畅或者无法访问可以尝试从这里下载：[Leyden - 百度网盘](https://pan.baidu.com/s/1mf5pMvisoU921O3rntr-hg?pwd=0000)。
 
 作为演示，OpenJDK 提供了一个简单的基准测试：[JavacBenchApp.java](/assets/posts/2024-06-21-leyden-ea1-release-notes/JavacBenchApp.java)。此基准测试使用 `javac` 编译一些 Java 源文件。
 
