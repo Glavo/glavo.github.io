@@ -1,5 +1,5 @@
 ---
-title: 'Babylon OpenJDK: HAT GPU 编程入门指南以及与 TornadoVM 的对比'
+title: '[翻译] Babylon OpenJDK: HAT GPU 编程入门指南以及与 TornadoVM 的对比'
 date: 2025-04-03 03:00:00
 tags:
   - JVM
