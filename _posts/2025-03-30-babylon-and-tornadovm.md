@@ -1,6 +1,6 @@
 ---
 title: 'Babylon OpenJDK: HAT GPU 编程入门指南以及与 TornadoVM 的对比'
-date: 2024-06-12 16:59:24
+date: 2025-04-03 03:00:00
 tags:
   - JVM
   - OpenJDK
