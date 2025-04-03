@@ -13,7 +13,7 @@ description: 'Babylon OpenJDK: A Guide for Beginners and Comparison with Tornado
 ## 简介
 
 [Babylon](https://github.com/openjdk/babylon) 是一个新的 OpenJDK 项目，旨在增强 Java 平台的代码反射功能，
-让反射不仅能查询类和字段，还能获取方法体和 lambda 表达式内的代码结构。
+使其不仅能用于查询类和字段，还能获取方法体和 lambda 表达式内的代码结构。
 这个项目的最终目标是让用户能在不使用任何第三方库的情况下执行代码转换。
 
 *这在实践中意味着什么？*经过增强的代码反射可用于表示不同类型的计算，例如自动微分 [2]、LINQ 表达式 [3]，甚至 GPU 分载（也是本文的重点）。
@@ -36,7 +36,7 @@ description: 'Babylon OpenJDK: A Guide for Beginners and Comparison with Tornado
 TornadoVM 是一个 Java 并行编程框架，可以让 Java 透明地调用 GPU 等现代硬件实现数据并行加速处理。
 
 **利益相关** ：我（本文原作者 Juan Fumero）是 TornadoVM 项目的架构师和首席开发者之一。
-虽然如此，但我对于 HAT 的探索完全是出于对这一新兴技术的好奇和探索欲。
+虽然如此，我对于 HAT 的探索完全是出于对这一新兴技术的好奇和探索欲。
 我的目标是对这两个项目进行客观的比较，在比较中我会尽力做到公平公正，
 如果你觉得有任何偏颇的地方，欢迎进行反馈和讨论。
 
@@ -58,7 +58,7 @@ HAT 提供了不同的接口来构建针对 GPU 执行而定制的应用程序�
 
 ### NDRange API
 
-HAT 基于 SIMT（单指令、多线程）模型，而 NDRange API 是用于让 Java 开发者针对此模型创建并行 kernel 的接口。
+HAT 基于 SIMT（单指令、多线程）模型，而 NDRange API 是用于让 Java 开发者针对此模型创建并行 Kernel 的接口。
 在 SIMT 模型中，一条指令同时在多个线程上运行，其中每个线程可以访问不同的数据。
 这种 SIMT 模型也是其他 GPU 编程接口和语言（如 CUDA、OpenCL 和 SYCL）的基础。
 
@@ -85,7 +85,7 @@ public void vectorAddition(float[] a, float[] b, float[] c) {
 public void vectorAddition(F32Array a, F32Array b, F32Array c, KernelContext context) {
       int idx = context.x;
       float sum = a.array(idx) + b.array(idx);
-      c.array(idx, sum );
+      c.array(idx, sum);
 }
 ```
 
@@ -99,8 +99,8 @@ public void vectorAddition(F32Array a, F32Array b, F32Array c, KernelContext con
   我们将在下一节深入探讨 HAT 的类型系统和内存管理。
 * `KernelContext`：引入了一个新参数--`KernelContext`。
   这个特殊对象用于访问 GPU 内置的 intrinsic，包括线程 ID 和像线程的最大数量这样的 GPU 执行参数。
-* 基于线程执行：不再需要 for 循环，取而代之的是使用从 kernel context 中获取的线程 ID 来访问数据。
-  这是一种标准的 GPU 编程模式：启动的线程数通常与输入数组的大小相对应。
+* 基于线程执行：不再需要 for 循环，取而代之的是使用从 Kernel Context 中获取的线程 ID 来访问数据。
+  这是一种标准的 GPU 编程范式：启动的线程数通常与输入数组的大小相对应。
 
 熟悉 CUDA、OpenCL 或 oneAPI 的人会发现这种代码结构非常熟悉。
 在比较 HAT 和 TornadoVM 时，我将再次讨论这种相似性。
@@ -108,12 +108,12 @@ public void vectorAddition(F32Array a, F32Array b, F32Array c, KernelContext con
 ### 内存映射
 
 这是 HAT 项目中我最喜欢的部分之一。HAT 定义了一个名为 `iFaceMapper` 的接口来表示数据。
-数据实际上通过 Panama Memory Segments API 存储在堆外，以便于 GPU 计算。
+数据实际上通过 Panama 内存段 API 存储在堆外，以便于 GPU 计算。
 
 在我看来，对于 Java 等托管语言的 GPU 编程来说，因为 GC 会在需要时移动对象，与 GPU 的要求相冲突，
 所以设计数据的表示方式是一大挑战，需要在性能、可移植性和易用性之间进行权衡。
 
-为了解决这个问题，HAT 定义了一个能够访问和操作 Panama Segment 中数据的基本接口。
+为了解决这个问题，HAT 定义了一个能够访问和操作 Panama 内存段中数据的基本接口。
 该接口可以扩展，使开发人员能够创建与 GPU 或其他硬件加速器兼容的自定义数据对象。
 
 这个接口有很大的潜在价值。它不仅适用于 Babylon 和 HAT，还适用于 TornadoVM 等项目。
@@ -121,7 +121,7 @@ public void vectorAddition(F32Array a, F32Array b, F32Array c, KernelContext con
 虽然 TornadoVM 目前提供了丰富的硬件加速器兼容数据类型，但缺少让用户自定义数据存储和表示方式的功能。
 这个接口提供了一种非常有前景的集成方法，具有很强的灵活性和可控制性，未来也许能够用于改进 TornadoVM。
 
-举个例子，我们可以这样在 HAT 中创建一个自定义数据对象来存储基于 Memory Segment 的数组：
+举个例子，我们可以这样在 HAT 中创建一个自定义数据对象来存储基于内存段的数组：
 
 ```java
 public interface MyCustomArray extends Buffer {
@@ -156,7 +156,7 @@ typedef struct MyCustomArray_s {
 ### Accelerator 和 Compute Context
 
 现在让我们来看看 API 的最后一部分，即 `Accelerator` 和 `ComputeContext`。
-这两个对象用于定义要使用的后端（如 OpenCL、CUDA 等），以及我们要分载的 kernel 列表。
+这两个对象用于定义要使用的后端（如 OpenCL、CUDA 等），以及我们要分载的 Kernel 列表。
 
 ```java
 var accelerator = new Accelerator(lookup, Backend.FIRST);
@@ -220,7 +220,7 @@ public static void matrixMultiplyKernel(KernelContext kc, F32Array matrixA, F32A
 这意味着，我们将在目标设备上部署与矩阵行数相等的线程数，使第一个循环并行运行。
 每个线程将执行第二层和第三层循环（归约操作），对每列的值进行累加求和。
 
-接下来，我们需要调度 kernel。
+接下来，我们需要调度 Kernel。
 
 ```java
 @CodeReflection
@@ -235,9 +235,10 @@ public static void matrixMultiply(ComputeContext cc, F32Array matrixA, F32Array 
 这是因为 HAT 可以在编译代码之前获取数据并推断类型，同时获取将要分载到设备上的方法的代码模型。
 因此，该注解可以帮助 HAT 编译器和运行时处理数据，并生成正确的 OpenCL 和 CUDA PTX 代码。
 
-您可以在此处查看完整示例：https://github.com/openjdk/babylon/pull/276。
-请注意，唯一将分载到 GPU 的方法是 `matrixMultiplyKernel`，
-其余代码均在主机端（Java 平台）运行。
+您可以在此处查看完整示例：[openjdk/babylon#276](https://github.com/openjdk/babylon/pull/276)。
+
+请注意，唯一会被分载到 GPU 的方法是 `matrixMultiplyKernel`，其余代码均在主机端（Java 平台）运行。
+
 那么编译过程是如何完成的？哪些部分被分载？最终代码是什么样的？让我们深入探究这些问题。
 
 ## Babylon/HAT 针对 GPU 的内部工作机制是什么样的？
@@ -250,6 +251,7 @@ HAT 采用两阶段编译流程来生成 GPU 源码（如 OpenCL C 或 SPIR-V）
 我们先来讨论一下 HAT 的两阶段编译流程。
 
 下图抽象地展示了 Babylon/HAT 生成 GPU 代码时不同编译阶段的工作流程。
+
 首先，正如前例所示，开发者使用 NDRange API 和 Accelerator Toolkit 来注释和识别要分载的代码。
 由于方法具有 `@CodeReflection` 注解，javac 编译器会为其生成代码模型并存储在类文件中。
 
@@ -259,13 +261,14 @@ HAT 采用两阶段编译流程来生成 GPU 源码（如 OpenCL C 或 SPIR-V）
 此时 HAT 会执行降阶阶段（实际上是通过代码反射 API 调用降阶阶段），将原始代码模型转换为类似于 LLVM IR 的底层中间表示。
 
 接着 HAT 会根据底层中间表示生成对应的 OpenCL C 代码（也可以生成 CUDA PTX——即CUDA程序的汇编代码，或 SPIR-V）。
+
 生成 GPU 代码后，我们需要通过另一个编译器将其转换为 GPU 二进制文件，
 这需要调用 GPU 驱动程序的对应函数来实现，例如 OpenCL 环境中对应的函数为 [`clBuildProgram`](https://registry.khronos.org/OpenCL/sdk/3.0/docs/man/html/clBuildProgram.html)。
 
 需要注意的是，开发者可以直接基于代码模型生成 GPU 代码，无需经过降阶阶段。
 对于一些目标代码类型，这可能是更简便的选择。但就生成 SPIR-V 或 CUDA PTX 而言，我觉得降阶阶段能为代码分载提供更合适的抽象层级。
 
-想了解更多详情请查看：[链接](https://github.com/openjdk/babylon/blob/fec8903d84878a5c2683071db5b58b4c97727932/hat/hat/src/main/java/hat/backend/ffi/C99FFIBackend.java#L98-L102)
+想了解更多详情请查看源码：[C99FFIBackend.java#L98-L102](https://github.com/openjdk/babylon/blob/fec8903d84878a5c2683071db5b58b4c97727932/hat/hat/src/main/java/hat/backend/ffi/C99FFIBackend.java#L98-L102)
 
 好了，理论讲的够多了，让我们开始实战环节吧！
 
