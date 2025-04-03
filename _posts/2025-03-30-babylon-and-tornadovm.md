@@ -388,13 +388,13 @@ https://github.com/jjfumero/tornadovm-examples。
 
 Babylon（OpenCL）：
 
-```java
+```bash
 java @bldr/hatrun ffi-opencl matmul
 ```
 
 Babylon（PTX）：
 
-```java
+```bash
 java @bldr/hatrun ffi-ptx matmul
 ```
 
@@ -514,8 +514,8 @@ Babylon 在同一 Intel 集成 GPU 上的性能波动范围较大，但最大与
 
 ### 目前 Babylon/Hat 相对于 TornadoVM 的局限性
 
-显然，Babylon 和 HAT 的核心目标是提供一个便于对 Java 代码的操作和转换的接口。
-Thus, the main focus is compilation and the minimum runtime support to run the code (e.g., data handling and data representation).
+显然，Babylon 和 HAT 的核心目标是提供一个便于对 Java 代码进行操作和转换的接口，
+所以它主要关注的是编译和运行代码的最小运行时支持（例如数据处理和数据表示）。
 
 相比之下，TornadoVM 提供了更完整的解决方案。其支持范围不仅限于 GPU，还涵盖各类现代硬件加速器。
 为此，TornadoVM 提供了一个更加复杂的工程框架，为不同架构实现自适应编译器优化，
