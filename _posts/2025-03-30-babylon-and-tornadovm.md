@@ -14,7 +14,7 @@ description: 'Babylon OpenJDK: A Guide for Beginners and Comparison with Tornado
 
 [Babylon](https://github.com/openjdk/babylon) 是一个新的 OpenJDK 项目，旨在增强 Java 平台的代码反射功能，
 使其不仅能用于查询类和字段，还能获取方法体和 lambda 表达式内的代码结构。
-这个项目的最终目标是让用户能在不使用任何第三方库的情况下执行代码转换。
+这个项目的最终目标是让用户能在不使用任何第三方库的情况下对代码进行转换。
 
 *这在实践中意味着什么？*经过增强的代码反射可用于表示不同类型的计算，例如自动微分 [2]、LINQ 表达式 [3]，甚至 GPU 分载（也是本文的重点）。
 我们在本文中将会介绍 Babylon 如何帮助开发人员在 Java 中定义 GPU 编程的并行框架，以及它与 TornadoVM 等现有的解决方案的不同之处。
