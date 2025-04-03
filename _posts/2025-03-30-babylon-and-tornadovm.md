@@ -617,18 +617,16 @@ HAT Accelerator 和 Compute-Context API 的设计灵感就源自 TornadoVM API�
 
 ## 讨论
 
-如果您对此有兴趣，让我们在这里继续讨论：
-
-https://github.com/jjfumero/jjfumero.github.io/discussions/14
+如果您对此有兴趣，让我们在这里继续讨论：[jjfumero/jjfumero.github.io#14](https://github.com/jjfumero/jjfumero.github.io/discussions/14)
 
 ## 链接
 
-[1] https://mail.openjdk.org/pipermail/discuss/2023-September/006226.html
+[1] [https://mail.openjdk.org/pipermail/discuss/2023-September/006226.html]
 
-[2] https://openjdk.org/projects/babylon/articles/code-models
+[2] [https://openjdk.org/projects/babylon/articles/code-models]
 
-[3] https://openjdk.org/projects/babylon/articles/linq
+[3] [https://openjdk.org/projects/babylon/articles/linq]
 
-[4] https://jjfumero.github.io/posts/2024/12/17/tornadovm-vs-opencl
+[4] [https://jjfumero.github.io/posts/2024/12/17/tornadovm-vs-opencl]
 
-[5] https://dl.acm.org/doi/pdf/10.1145/2816707.2816715
+[5] [https://dl.acm.org/doi/pdf/10.1145/2816707.2816715]
