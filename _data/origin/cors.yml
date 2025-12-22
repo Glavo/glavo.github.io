@@ -1,0 +1,55 @@
+# Resource Hints
+resource_hints:
+  - url: https://registry.npmmirror.com
+    links:
+      - rel: preconnect
+      - rel: dns-prefetch
+  # - url: https://fonts.googleapis.com
+  #   links:
+  #     - rel: preconnect
+  #     - rel: dns-prefetch
+  # - url: https://fonts.gstatic.com
+  #   links:
+  #     - rel: preconnect
+  #       opts: [crossorigin]
+  #     - rel: dns-prefetch
+
+
+# Web Fonts
+webfonts: https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap
+
+# Libraries
+
+toc:
+  css: https://registry.npmmirror.com/tocbot/4.36.4/files/dist/tocbot.css
+  js: https://registry.npmmirror.com/tocbot/4.36.4/files/dist/tocbot.min.js
+
+fontawesome:
+  css: https://registry.npmmirror.com/@fortawesome/fontawesome-free/7.1.0/files/css/all.min.css
+
+search:
+  js: https://registry.npmmirror.com/simple-jekyll-search/1.10.0/files/dest/simple-jekyll-search.min.js
+
+mermaid:
+  js: https://registry.npmmirror.com/mermaid/11.12.0/files/dist/mermaid.min.js
+
+dayjs:
+  js:
+    common: https://registry.npmmirror.com/dayjs/1.11.18/files/dayjs.min.js
+    locale: https://registry.npmmirror.com/dayjs/1.11.18/files/locale/:LOCALE.js
+    relativeTime: https://registry.npmmirror.com/dayjs/1.11.18/files/plugin/relativeTime.js
+    localizedFormat: https://registry.npmmirror.com/dayjs/1.11.18/files/plugin/localizedFormat.js
+
+glightbox:
+  css: https://registry.npmmirror.com/glightbox/3.3.0/files/dist/css/glightbox.min.css
+  js: https://registry.npmmirror.com/glightbox/3.3.0/files/dist/js/glightbox.min.js
+
+lazy-polyfill:
+  css: https://registry.npmmirror.com/loading-attribute-polyfill/2.1.1/files/dist/loading-attribute-polyfill.css
+  js: https://registry.npmmirror.com/loading-attribute-polyfill/2.1.1/files/dist/loading-attribute-polyfill.umd.js
+
+clipboard:
+  js: https://registry.npmmirror.com/clipboard/2.0.11/files/dist/clipboard.min.js
+
+mathjax:
+  js: https://registry.npmmirror.com/mathjax/3.2.2/files/es5/tex-chtml.js

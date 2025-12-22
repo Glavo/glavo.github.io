@@ -1,162 +1,226 @@
-#### Exclude
-exclude: 
-  - ".ruby-version"
-  - "README.md"
-  - "scripts/"
-  - ".idea/"
+# The Site Configuration
 
-#### Code Highlighter
-# 'pygments' is unsupported on GitHub Pages now.
-highlighter: rouge
+# Import the theme
+theme: jekyll-theme-chirpy
 
-#### Permalink
-# For more see: https://jekyllrb.com/docs/permalinks/
-permalink: pretty
+# The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
+# If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
+# otherwise, the layout language will use the default value of 'en'.
+lang: zh-CN
 
-#### Markdown Processors
-# 'redcarpet' is unsupported on GitHub Pages now.
-markdown: kramdown
+# Change to your timezone › https://zones.arilyn.cc
+timezone: Asia/Shanghai
 
-#### Default Attributes
+# jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
+# ↓ --------------------------
+
+title: Glavo # the main title
+
+tagline: Glavo 的博客 # it will display as the subtitle
+
+description: >- # used by seo meta and the atom feed
+  A minimal, responsive and feature-rich Jekyll theme for technical writing.
+
+# Fill in the protocol & hostname for your site.
+# E.g. 'https://username.github.io', note that it does not end with a '/'.
+url: ""
+
+github:
+  username: Glavo # change to your GitHub username
+
+twitter:
+  username: CattusGlavo # change to your Twitter username
+
+bilibili:
+  url: https://space.bilibili.com/20314891
+
+social:
+  # Change to your full name.
+  # It will be displayed as the default author of the posts and the copyright owner in the Footer
+  name: Glavo
+  email: zjx001202@gmail.com # change to your email address
+  links:
+    # The first element serves as the copyright owner's link
+    - https://space.bilibili.com/20314891
+    - https://twitter.com/CattusGlavo
+    - https://github.com/Glavo
+
+# Site Verification Settings
+webmaster_verifications:
+  google: # fill in your Google verification code
+  bing: # fill in your Bing verification code
+  alexa: # fill in your Alexa verification code
+  yandex: # fill in your Yandex verification code
+  baidu: # fill in your Baidu verification code
+  facebook: # fill in your Facebook verification code
+
+# ↑ --------------------------
+# The end of `jekyll-seo-tag` settings
+
+# Web Analytics Settings
+analytics:
+  google:
+    id: # fill in your Google Analytics ID
+  goatcounter:
+    id: # fill in your GoatCounter ID
+  umami:
+    id: # fill in your Umami ID
+    domain: # fill in your Umami domain
+  matomo:
+    id: # fill in your Matomo ID
+    domain: # fill in your Matomo domain
+  cloudflare:
+    id: # fill in your Cloudflare Web Analytics token
+  fathom:
+    id: # fill in your Fathom Site ID
+
+# Page views settings
+pageviews:
+  provider: # now only supports 'goatcounter'
+
+# Prefer color scheme setting.
+#
+# Note: Keep empty will follow the system prefer color by default,
+# and there will be a toggle to switch the theme between dark and light
+# on the bottom left of the sidebar.
+#
+# Available options:
+#
+#     light — Use the light color scheme
+#     dark — Use the dark color scheme
+#
+theme_mode: light # [light | dark]
+
+# The CDN endpoint for media resources.
+# Notice that once it is assigned, the CDN url
+# will be added to all media resources (site avatar, posts' images, audio and video files) paths starting with '/'
+#
+# e.g. 'https://cdn.com'
+cdn:
+
+# the avatar on sidebar, support local or CORS resources
+avatar: "/assets/img/favicons/web-app-manifest-192x192.png"
+# The URL of the site-wide social preview image used in SEO `og:image` meta tag.
+# It can be overridden by a customized `page.image` in front matter.
+social_preview_image: # string, local or CORS resources
+
+# boolean type, the global switch for TOC in posts.
+toc: true
+
+comments:
+  # Global switch for the post-comment system. Keeping it empty means disabled.
+  provider: # [disqus | utterances | giscus]
+  # The provider options are as follows:
+  disqus:
+    shortname: # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
+  # utterances settings › https://utteranc.es/
+  utterances:
+    repo: # <gh-username>/<repo>
+    issue_term: # < url | pathname | title | ...>
+  # Giscus options › https://giscus.app
+  giscus:
+    repo: # <gh-username>/<repo>
+    repo_id:
+    category:
+    category_id:
+    mapping: # optional, default to 'pathname'
+    strict: # optional, default to '0'
+    input_position: # optional, default to 'bottom'
+    lang: # optional, default to the value of `site.lang`
+    reactions_enabled: # optional, default to the value of `1`
+
+# Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
+assets:
+  self_host:
+    enabled: # boolean, keep empty means false
+    # specify the Jekyll environment, empty means both
+    # only works if `assets.self_host.enabled` is 'true'
+    env: # [development | production]
+
+pwa:
+  enabled: true # The option for PWA feature (installable)
+  cache:
+    enabled: true # The option for PWA offline cache
+    # Paths defined here will be excluded from the PWA cache.
+    # Usually its value is the `baseurl` of another website that
+    # shares the same domain name as the current website.
+    deny_paths:
+      # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
+
+paginate: 10
+
+# The base URL of your site
+baseurl: ""
+
+# ------------ The following options are not recommended to be modified ------------------
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts: # Rouge Options › https://github.com/jneen/rouge#full-options
+    css_class: highlight
+    # default_lang: console
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
 defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
+  - scope:
+      path: "" # An empty string here means all files in the project
+      type: posts
     values:
-      layout: "post"
+      layout: post
+      comments: true # Enable comments in posts.
+      toc: true # Display TOC column in posts.
+      # DO NOT modify the following parameter unless you are confident enough
+      # to update the code of all other post links in this project.
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ""
+      type: tabs # see `site.collections`
+    values:
+      layout: page
+      permalink: /:title/
 
-#### Pagination
-paginate: 20
+sass:
+  style: compressed
 
-#### Site
-title : Glavo
-tagline: Glavo 的博客
-assets: /assets
-url:
-baseurl:
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
 
-#### Language
-## blog site languages: en, zh-CN, zh-TW, de
-language: zh-CN
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - README.md
+  - LICENSE
+  - purgecss.js
+  - "*.config.js"
+  - "package*.json"
 
-#### Menu
-menu:
-  主页: /
-  文章: /archives
-  关于: /about
-## you can create `tags` and `categories` folders (I had created them already).
-## And create a `index.md` file in each of them.
-## set `front-matter`as
-## layout: tags (or categories)
-## title: tags (or categories)
-## ---
-
-#### Widgets
-widgets:
-- category
-- tag
-- tagcloud
-- links
-- douban
-- github-card
-- rss
-## provide seven widgets:github-card,category,tag,rss,archive,tagcloud,links,weibo,douban
-
-future: true
-
-#### RSS
-rss: /atom.xml ## RSS address.
-
-#### Image
-imglogo:
-  enable: true             ## display image logo true/false.
-  src: 'img/logo.png'        ## `.svg` and `.png` are recommended,please put image into the theme folder `/jacman/source/img`.
-favicon: 'img/favicon.ico'   ## size:32px*32px,`.ico` is recommended,please put image into the theme folder `/jacman/source/img`.
-apple_icon: 'img/jacman.png' ## size:114px*114px,please put image into the theme folder `/jacman/source/img`.
-author_img: 'img/author.png' ## size:220px*220px.display author avatar picture.if don't want to display,please don't set this.
-banner_img: #img/banner.jpg  ## size:1920px*200px+. Banner Picture
-
-#### index post is expanding or not
-index:
-  expand: false           ## default is unexpanding,so you can only see the short description of each post.
-  excerpt_link: 查看全文
-
-close_aside: false  #close sidebar in post page if true
-mathjax: true      #enable mathjax if true
-share_to: true #enable share-to buttons if true
-
-#### Author information
-author:
-  name: 'Glavo'      ## e.g. wuchong Author name
-  intro_line1:  "欢迎来到喵呜呜的主页，如果对文章有任何疑问，"    ## your introduction on the bottom of the page
-  intro_line2:  "欢迎在 GitHub 上提出 issue"  ## the 2nd line
-  weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
-  weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
-  tsina:      ## e.g. 2176287895  Your weibo ID,It will be used in share button.
-  douban:     ## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014
-  zhihu: Glavo
-  email: zjx001202@gmail.com
-  twitter: CattusGlavo   ## e.g. jarkwu for https://twitter.com/jarkwu
-  github: Glavo
-  facebook:   ## e.g. imjark for https://facebook.com/imjark
-  linkedin:   ## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014
-  google_plus:    ## e.g. "111190881341800841449" for https://plus.google.com/u/0/111190881341800841449, the "" is needed!
-  stackoverflow: '7659948' ## e.g. 3222790 for http://stackoverflow.com/users/3222790/jark
-## if you set them, the corresponding  share button will show on the footer
-
-#### Toc
-toc:
-  article: true   ## show contents in article.
-  aside: true     ## show contents in aside.
-## you can set both of the value to true of neither of them.
-## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.
-
-#### Links
-links:
-  ice1000: https://ice1000.org/
-  Eldath: https://ray-eldath.me/
-
-#### Comment
-disqus_shortname:     ## e.g. wuchong      your disqus short name.        website: http://disqus.com
-hypercomments_id:     ## e.g. 91510        your hypercomments widget id.  website: http://hypercomments.com
-## set only one of them
-
-#### Analytics
-google_analytics:
-  enable: false
-  id:        ## e.g. UA-46321946-2 your google analytics ID.
-  site:      ## e.g. wuchong.me your google analytics site or set the value as auto.
-## You MUST upgrade to Universal Analytics first!
-## https://developers.google.com/analytics/devguides/collection/upgrade/?hl=zh_CN
-baidu_tongji:
-  enable: false
-  sitecode:  ## e.g. e6d1f421bbc9962127a50488f9ed37d1 your baidu tongji site code
-cnzz_tongji:
-  enable: false
-  siteid:    ## e.g. 1253575964 your cnzz tongji site id
-
-#### Miscellaneous
-fancybox: true        ## if you use gallery post or want use fancybox please set the value to true.
-totop: true           ## if you want to scroll to top in every post set the value to true
-
-#### Custom Search
-google_cse:
-  enable: false
-  cx: 018294693190868310296:abnhpuysycw  ## e.g. 018294693190868310296:abnhpuysycw your Custom Search ID.
-## https://www.google.com/cse/
-## To enable the custom search You must create a "search" folder in '/source' and a "index.md" file
-## set the 'front-matter' as
-## layout: search
-## title: search
-## ---
-baidu_search:     ## http://zn.baidu.com/
-  enable: false
-  id:   ## e.g. "783281470518440642"  for your baidu search id
-  site: http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
-simple_jekyll_search:
-  enable: true
-  fulltext: false
-
-gems:
- - jemoji
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
