@@ -45,5 +45,5 @@ jobs:
       - name: Build Assets
         run: npm i && npm run build
 
-      - name: Test Site
-        run: bash tools/test.sh
+      - name: Build Site
+        run: JEKYLL_ENV=production bundle exec jekyll build

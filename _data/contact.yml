@@ -5,6 +5,7 @@
 
 - type: bilibili
   icon: "fa-brands fa-bilibili"
+  url: "https://space.bilibili.com/20314891"
 
 - type: twitter
   icon: "fa-brands fa-x-twitter"
