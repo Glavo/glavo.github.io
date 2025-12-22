@@ -35,5 +35,4 @@ Thumbs.db
 .rvmrc
 
 *.lock
-Gemfile.lock
 /.idea/
