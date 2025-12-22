@@ -50,4 +50,18 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site/
+  deploy:
+    if: ${{ github.repository == 'Glavo/glavo.github.io' && github.ref_name == 'v2' }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
       
