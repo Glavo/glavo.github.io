@@ -3,8 +3,6 @@ name: CI
 on:
   push:
     branches:
-      - master
-      - "hotfix/*"
     paths-ignore:
       - ".github/**"
       - "!.github/workflows/ci.yml"
@@ -47,3 +45,9 @@ jobs:
 
       - name: Build Site
         run: JEKYLL_ENV=production bundle exec jekyll build
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site/
+      
