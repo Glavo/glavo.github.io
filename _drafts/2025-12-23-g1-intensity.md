@@ -1,10 +1,10 @@
 ---
-title: '[翻译] JEP draft: Automatic Heap Sizing for G1'
+title: '[翻译] JEP 草案：G1 的自动堆大小调整'
 date: 2025-12-23 12:00:00
 tags:
   - JVM
   - GC
-categories: translate
+categories: 翻译
 description:
 ---
 
@@ -12,104 +12,104 @@ description:
 
 ---
 
-## Summary
+## 摘要
 
-Automatically and dynamically adapt the maximum Java heap size according to the environment when using the G1 garbage collector (G1).
+在使用 G1 垃圾收集器（G1）时，根据环境自动动态调整最大 Java 堆大小。
 
-## Goals
+## 目标
 
-When using G1:
+在使用 G1 时：
 
-* Dynamically adapt the maximum Java heap size to changes to the available memory in the environment.
-* Typical performance should not change noticeably compared to when the end user manually correctly tunes Java heap size.
+* 动态调整最大 Java 堆大小以适应环境中可用内存的变化。
+* 典型性能与用户手动正确调整 Java 堆大小时相比不应有明显变化。
 
-## Non-Goals
+## 非目标
 
-It is not a goal of this JEP to:
+此 JEP 的目标不包括：
 
-* Find a static optimal maximum Java heap size.
-* Remove the existing configurability of static heap bounds using existing Java heap sizing options.
-* Change existing dynamic adaption of the current Java heap size to the workload.
+* 找到静态的最佳最大 Java 堆大小。
+* 移除现有的通过 Java 堆大小选项配置静态堆边界的功能。
+* 更改现有的根据工作负载动态调整当前 Java 堆大小的功能。
 
-## Motivation
+## 动机
 
-When users choose the G1 garbage collector, the maximum heap size is the only memory-related option they should need to set. Unfortunately, setting a good maximum heap size is notoriously difficult. An application's memory usage or requirements depend on the input and changes during different phases of execution, yet the user is asked to set a maximum heap size across the entire runtime of the application in advance. In addition to the Java heap memory, the JVM itself allocates a certain, non-fixed amount of memory for its own purpose that also depends on the selected maximum heap size which the user needs to consider when determining it. If the maximum Java heap size is set too low, the application can run out of memory; if set too high, the environment can run out of memory. Finding a good maximum heap size involves measuring application memory usage and throughput for different maximum Java heap sizes in an experimental setup that provides a representative workload to an application. Setting up such an environment alone is challenging for most users.
+当用户选择 G1 垃圾收集器时，最大堆大小是他们唯一需要设置的与内存相关的选项。不幸的是，设置一个合适的最大堆大小是出了名的困难。应用程序的内存使用或需求取决于输入，并且在执行的不同阶段会发生变化，但用户需要提前为应用程序的整个运行时间设置最大堆大小。除了 Java 堆内存外，JVM 本身还会为其自身目的分配一定的、非固定数量的内存，这也取决于所选的最大堆大小，用户在确定最大堆大小时需要考虑这一点。如果最大 Java 堆大小设置得太低，应用程序可能会内存不足；如果设置得太高，环境可能会内存不足。找到一个合适的最大堆大小需要在提供代表性工作负载的实验环境中测量应用程序内存使用和吞吐量。仅仅设置这样的环境对大多数用户来说就是一个挑战。
 
-We argue that the JVM can automatically control the maximum Java heap size and balance CPU and memory consumption better than the user can manually with explicit configuration. The JVM should monitor the free memory available in the environment, and use that always current information to automatically determine a maximum heap size. Users should not need to set `-Xmx` when choosing G1. G1 should be allowed to use all the memory in the environment if needed, just as a C application does, yet timely respond to a reduction in free memory. Finally, users should be able to express a preference between less garbage collector CPU usage (but more memory use) and more garbage collector CPU usage (but less memory use) similarly to what [JEP XXX](https://openjdk.org/jeps/8329758) provides for the ZGC collector.
+我们认为 JVM 可以自动控制最大 Java 堆大小，并比用户通过显式配置手动调整更好地平衡 CPU 和内存消耗。JVM 应该监控环境中可用的空闲内存，并使用这些始终最新的信息自动确定最大堆大小。当选择 G1 时，用户不需要设置 `-Xmx`。G1 应该被允许在需要时使用环境中的所有内存，就像 C 应用程序一样，同时及时响应空闲内存的减少。最后，用户应该能够表达对较少垃圾收集器 CPU 使用（但更多内存使用）和更多垃圾收集器 CPU 使用（但更少内存使用）之间的偏好，类似于 [JEP XXX](https://openjdk.org/jeps/8329758) 为 ZGC 收集器提供的功能。
 
-With automatic heap sizing, the memory consumption may further depend on how much free memory is available in the environment. The same application may consume more memory if it is not needed for other applications and less memory when other applications running in the same environment are using more memory.
+通过自动堆大小调整，内存消耗可能进一步取决于环境中可用的空闲内存量。同一应用程序在其他应用程序不需要内存时可能会消耗更多内存，而在同一环境中运行的其他应用程序使用更多内存时则消耗更少内存。
 
-## Description
+## 描述
 
-G1 is being extended to automatically select a maximum Java heap size that dynamically adapts to changing circumstances in the program and the environment.
+G1 将被扩展以自动选择一个最大 Java 堆大小，该大小可以根据程序和环境中的变化动态调整。
 
-The selected heap size will lie between the minimum (`-Xms`) and maximum (`-Xmx`) heap configuration, but when one or both are not configured by the user, the default maximum and minimum heap sizes will be changed when using G1 to give the automatic heap sizing as much flexibility as possible, as follows:
+选择的堆大小将在最小（`-Xms`）和最大（`-Xmx`）堆配置之间，但当用户未配置其中一个或两个时，使用 G1 时默认的最大和最小堆大小将更改，以便为自动堆大小调整提供尽可能多的灵活性，如下所示：
 
-* Default minimum and initial heap sizes (`-Xms`) are changed to 4 MB.
-* Default maximum heap size (`-Xmx`) is changed to 100% of the available RAM of the computer or the compressed oops boundary if [compressed oops](https://wiki.openjdk.org/display/HotSpot/CompressedOops) are in use, whichever is lower (see the [Determining maximum heap size](https://openjdk.org/jeps/8359211#Determining-maximum-heap-size) section), minus a small reserve.
+* 默认最小和初始堆大小（`-Xms`）更改为 4 MB。
+* 默认最大堆大小（`-Xmx`）更改为计算机可用 RAM 的 100% 或压缩 oops 边界（如果使用了 [压缩 oops](https://wiki.openjdk.org/display/HotSpot/CompressedOops)），以较小者为准（参见 [确定最大堆大小](https://openjdk.org/jeps/8359211#Determining-maximum-heap-size) 部分），减去一个小的保留量。
 
-Within these boundaries, G1 will dynamically adapt the Java heap size, as described below:
+在这些边界内，G1 将动态调整 Java 堆大小，如下所述：
 
-* G1 ergonomics will [automatically and dynamically tune](https://openjdk.org/jeps/8359211#Automatic-dynamic-tuning) the maximum heap size according to changes in the availability of free memory in the environment. This [response to environment memory pressure](https://openjdk.org/jeps/8359211#Responding-to-environment-memory-pressure) will be to either decrease maximum heap size and reduce JVM memory usage by giving back memory to the operating system, or increase maximum heap size and use more memory as free memory in the environment increases to better meet G1 garbage collector goals.
-* Sudden increases in application allocation requests are specifically handled, by [rapid expansion](https://openjdk.org/jeps/8359211#Rapid-expansion) of the Java heap.
-* A [new method](https://openjdk.org/jeps/8359211#G1GCIntensity) (`-XX:G1GCIntensity`) to indicate the user's intent about the performance/memory footprint tradeoff for influencing this dynamic maximum heap size.
+* G1 人机工程学将根据环境中可用空闲内存的变化[自动动态调整](https://openjdk.org/jeps/8359211#Automatic-dynamic-tuning)最大堆大小。这种[响应环境内存压力](https://openjdk.org/jeps/8359211#Responding-to-environment-memory-pressure)的方式是减少最大堆大小并通过将内存返还给操作系统来减少 JVM 内存使用，或者随着环境中空闲内存的增加而增加最大堆大小并使用更多内存，以更好地满足 G1 垃圾收集器目标。
+* 通过[快速扩展](https://openjdk.org/jeps/8359211#Rapid-expansion) Java 堆，专门处理应用程序分配请求的突然增加。
+* 一个[新方法](https://openjdk.org/jeps/8359211#G1GCIntensity)（`-XX:G1GCIntensity`）用于指示用户对性能/内存占用权衡的意图，以影响此动态最大堆大小。
 
-With these changes, the need for configuring the maximum heap size when using G1 should drop significantly.
+通过这些更改，使用 G1 时配置最大堆大小的需求应该会显著减少。
 
-This feature will be enabled by default when using the G1 garbage collector. Since the G1 garbage collector is currently the default collector, there is typically nothing to do for the end user to benefit from these changes. If there are existing minimum and maximum heap size limitations set (via `-Xms` and `-Xms`), they will set the operating limits within which these new features will apply. Users are encouraged to remove these options.
+使用 G1 垃圾收集器时，此功能将默认启用。由于 G1 垃圾收集器目前是默认收集器，最终用户通常无需执行任何操作即可从这些更改中受益。如果设置了现有的最小和最大堆大小限制（通过 `-Xms` 和 `-Xms`），它们将设置这些新功能适用的操作限制。鼓励用户删除这些选项。
 
-### Automatic dynamic tuning
+### 自动动态调整
 
-After finding an initial maximum heap size, G1 continuously monitors the behavior of the garbage collector, the application, and the environment, adjusts the maximum heap size, and applies incremental tuning of actual heap size using existing mechanisms.
+在找到初始最大堆大小后，G1 会持续监控垃圾收集器、应用程序和环境的行为，调整最大堆大小，并使用现有机制对实际堆大小进行增量调整。
 
-### Determining maximum heap size
+### 确定最大堆大小
 
-G1 ergonomics determine the maximum heap size using 100% the available RAM in the environment, observing current settings for [compressed oops](https://wiki.openjdk.org/display/HotSpot/CompressedOops) minus a small reserve of free memory if the user did not set a maximum heap size.
+G1 人机工程学使用环境中可用 RAM 的 100% 确定最大堆大小，观察当前的 [压缩 oops](https://wiki.openjdk.org/display/HotSpot/CompressedOops) 设置，减去一个小的空闲内存保留量（如果用户未设置最大堆大小）。
 
-The compressed oops boundary is approximately at 32 GB without additional options. Staying within this bound by default, keeps G1 profiting from the performance advantages compressed oops provide in the common case of applications requiring less than 32 GB. When disabling compressed oops, G1 may use all of the available memory in the environment minus the small reserve.
+压缩 oops 边界大约在 32 GB，没有其他选项。默认情况下保持在此边界内，使 G1 在需要少于 32 GB 的应用程序的常见情况下从压缩 oops 提供的性能优势中受益。当禁用压缩 oops 时，G1 可以使用环境中所有可用内存减去小的保留量。
 
-A reserve of system memory kept unused by the JVM is generally helpful, even in even in single-application deployments. For example, it allows for file caches to be populated, which typically improves the performance of the system. At the same time, as explained in [rapid expansion](https://openjdk.org/jeps/8359211#Rapid-expansion) this unused memory acts as a safety buffer that can be used to avoid unexpected responses by the garbage collection algorithm that manifest in whole heap collections if the application's allocation rate rises suddenly.
+保留 JVM 未使用的系统内存通常是有帮助的，即使在单应用程序部署中也是如此。例如，它允许填充文件缓存，这通常会提高系统性能。同时，如[快速扩展](https://openjdk.org/jeps/8359211#Rapid-expansion)中所述，这些未使用的内存充当安全缓冲区，可用于避免垃圾收集算法的意外响应，这种响应会在应用程序分配速率突然上升时表现为整个堆的收集。
 
-### Measuring CPU overhead
+### 测量 CPU 开销
 
-G1 is a generational garbage collector. Young objects are placed in a young generation, collected more frequently during young-only phases. Old objects are promoted to the old generation without collecting them at first. The old generation is collected less frequently in the space reclamation phase (which collects both generations) according to the [G1 garbage collection cycle](https://docs.oracle.com/en/java/javase/24/gctuning/garbage-first-g1-garbage-collector1.html#GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180).
+G1 是一种分代垃圾收集器。年轻对象被放置在年轻代中，在年轻代阶段更频繁地收集。老年对象被提升到老年代，最初不收集它们。根据 [G1 垃圾收集周期](https://docs.oracle.com/en/java/javase/24/gctuning/garbage-first-g1-garbage-collector1.html#GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180)，老年代的收集频率较低。
 
-To decide whether to grow or shrink the heap G1 tracks garbage collector CPU usage, trying to keep the target garbage collection CPU usage derived from the current value of `-XX:GCTimeRatio`, and modified by `-XX:G1GCIntensity`, the current maximum heap size, and other existing variables. In the existing heuristics, G1 examines the overall GC CPU usage at every young collection. If a sequence of garbage collections consumes more CPU than the CPU target, then the heap expands. Conversely, if a sequence of collections consumes less CPU than that CPU target, the heap shrinks.
+为了决定是否扩展或收缩堆，G1 会跟踪垃圾收集器的 CPU 使用情况，尝试保持从当前 `-XX:GCTimeRatio` 值派生的目标垃圾收集 CPU 使用率，并由 `-XX:G1GCIntensity`、当前最大堆大小和其他现有变量修改。在现有启发式方法中，G1 在每次年轻代收集时检查整体 GC CPU 使用情况。如果一系列垃圾收集消耗的 CPU 超过了 CPU 目标，则堆会扩展。相反，如果一系列收集消耗的 CPU 少于该 CPU 目标，则堆会收缩。
 
-Garbage collection activity is not the only CPU overhead imposed by the GC. Frequent collection cycles impose other CPU penalties on the application, such as increased execution of GC barriers (instructions performed when accessing Java objects while a garbage collection cycle is in progress). The existing automatic heap resizing heuristics take this into account and expand the heap to minimize such impacts. These impacts can be larger the more CPU the application itself consumes, and this, too, is taken into consideration.
+垃圾收集活动并不是 GC 施加的唯一 CPU 开销。频繁的收集周期会对应用程序施加其他 CPU 惩罚，例如在垃圾收集周期进行时访问 Java 对象时执行的 GC 屏障（指令）。现有的自动堆大小调整启发式方法会考虑到这一点，并扩展堆以最小化此类影响。这些影响可能会随着应用程序本身消耗的 CPU 越多而越大，这也会被考虑在内。
 
-### Responding to environment memory pressure
+### 响应环境内存压力
 
-The JVM process can automatically find an appropriate heap size for the given target garbage collector CPU usage. However, if we let the JVM use as much memory as it wants, the environment may not have enough memory available to run other processes. Therefore, in addition to monitoring the behaviour of the Java application, G1 will also continuously monitor the overall available free memory. If there is a decrease in free memory in the environment, G1 will adjust its internal target CPU usage and attempt to shrink the heap. Similarly, in response to more free memory in the environment, G1 may increase JVM memory usage to better meet garbage collector CPU usage and pause time goals to accommodate current and future predicted behaviour of the application.
+JVM 进程可以自动找到适合给定目标垃圾收集器 CPU 使用率的堆大小。然而，如果我们让 JVM 使用尽可能多的内存，环境可能没有足够的内存来运行其他进程。因此，除了监控 Java 应用程序的行为外，G1 还会持续监控整体可用空闲内存。如果环境中的空闲内存减少，G1 将调整其内部目标 CPU 使用率并尝试收缩堆。同样，响应环境中更多的空闲内存，G1 可能会增加 JVM 内存使用，以更好地满足垃圾收集器 CPU 使用率和暂停时间目标，以适应应用程序的当前和未来预测行为。
 
-This shrinking and expansion of the Java heap is done concurrently with the application; the added memory is proactively concurrently uncommitted or committed and paged to minimize any slowdowns due to OS operations.
+Java 堆的这种收缩和扩展是与应用程序并发完成的；添加的内存会主动并发取消提交或提交并分页，以最大程度地减少由于操作系统操作导致的任何减速。
 
-This new maximum heap size will automatically consider the JVM's internal native memory usage: If the JVM requires more native memory, the amount of free memory in the environment adjusts, and so the automatically determined maximum heap size.
+这种新的最大堆大小将自动考虑 JVM 的内部本机内存使用：如果 JVM 需要更多的本机内存，环境中可用内存的数量会调整，因此自动确定的最大堆大小也会调整。
 
-Other applications running in the same environment may also deplete the free memory in the environment, which will have the effect of increasing GC frequency, making the JVM consume less memory to shrink the heap at the cost of spending more CPU. Multiple JVMs using G1 and running in the same environment will reach an equilibrium rather than fight over memory with each other.
+在同一环境中运行的其他应用程序也可能会耗尽环境中的空闲内存，这将导致垃圾收集频率增加，使 JVM 消耗更少的内存以收缩堆，但代价是消耗更多的 CPU。在同一环境中使用 G1 并运行的多个 JVM 将达到平衡，而不是相互争夺内存。
 
-On MacOS or Windows with memory compression enabled, the ratio of compressed and uncompressed memory is continuously monitored. The perceived size of the memory reserve is scaled according to that compression ratio. When the OS starts compressing more memory, the GC will work harder to reclaim garbage and give memory back to the OS, relieving its compression pressure.
+在启用内存压缩的 MacOS 或 Windows 上，压缩和未压缩内存的比例会被持续监控。根据该压缩比率调整感知的内存保留大小。当操作系统开始压缩更多内存时，GC 将更加努力地回收垃圾并将内存返还给操作系统，从而缓解其压缩压力。
 
-### Rapid expansion
+### 快速扩展
 
-Decent startup performance is an important goal for a balanced garbage collector like G1. When the JVM starts with an initial heap size of 4 MB on a large computer with many cores, it will quickly find itself in a situation where that Java heap size is not enough. The application might require a heap size of, for example, 20 GB, in which case the garbage collector will need to expand the heap and do so very quickly.
+对于像 G1 这样的平衡垃圾收集器来说，体面的启动性能是一个重要目标。当 JVM 在具有许多内核的大型计算机上以 4 MB 的初始堆大小启动时，它很快就会发现这种 Java 堆大小不够。应用程序可能需要一个堆大小，例如 20 GB，在这种情况下，垃圾收集器将需要扩展堆并非常快速地执行此操作。
 
-Specifically at startup, with the heap starting out small, garbage collection will likely trigger early on and frequently, as the application is likely to need more memory faster than the garbage collector can free it. To accommodate these application allocation surges, G1 will keep expanding the heap as per existing heuristics.
+特别是在启动时，堆从小开始，垃圾收集可能会很早且频繁地触发，因为应用程序可能需要的内存比垃圾收集器可以释放的内存更快。为了适应这些应用程序分配激增，G1 将根据现有启发式方法继续扩展堆。
 
-In addition to expanding the heap in the event of allocation surges, the garbage collector will use the recent CPU usage of the garbage collector and application activity to grow the heap as necessary. Growing the heap allows G1 to reduce the frequency of collections, which in turn reduces the garbage collector's CPU usage and so may improve the application's throughput.
+除了在分配激增的情况下扩展堆外，垃圾收集器还将使用垃圾收集器和应用程序活动的最近 CPU 使用情况根据需要增长堆。扩展堆允许 G1 减少收集频率，这反过来减少了垃圾收集器的 CPU 使用，因此可能提高了应用程序的吞吐量。
 
 ### G1GCIntensity
 
-Users may have different preferences on how to trade garbage collector CPU usage for memory footprint for different applications.
+用户可能对如何为不同应用程序权衡垃圾收集器 CPU 使用与内存占用有不同的偏好。
 
-The new option `-XX:G1GCIntensity` influences this tradeoff between garbage collector CPU usage and memory footprint. It takes an integer value between 0 and 10, with a default of 5. This corresponds to a balance of garbage collector CPU usage/memory footprint provided by existing defaults. Raise it for a larger CPU usage and a smaller heap; lower it for less CPU usage and a larger heap.
+新选项 `-XX:G1GCIntensity` 影响垃圾收集器 CPU 使用与内存占用之间的这种权衡。它接受一个介于 0 和 10 之间的整数值，默认值为 5。这对应于现有默认值提供的垃圾收集器 CPU 使用/内存占用平衡。提高它以获得更大的 CPU 使用率和更小的堆；降低它以减少 CPU 使用率和更大的堆。
 
-The `-XX:G1GCIntensity` option is manageable, meaning it may be updated at runtime, if desired.
+`-XX:G1GCIntensity` 选项是可管理的，这意味着如果需要，可以在运行时更新。
 
-## Testing
+## 测试
 
-This enhancement primarily affects performance metrics. Therefore, it will be thoroughly performance-tested with a wide variety of workloads. The defined success metrics will be tested on said workloads.
+此增强功能主要影响性能指标。因此，它将通过各种工作负载进行彻底的性能测试。定义的成功指标将在上述工作负载上进行测试。
 
-## Risks and Assumptions
+## 风险和假设
 
-By changing the default maximum heap size from 25% of the available memory to all available memory, there is a risk that the new heuristics use more memory than the current implementation would, and so other processes may run out of memory. However, even with a 25% default maximum heap policy there is already a risk of that happening when several JVMs using that default run in the same environment. Moreover, the dynamically updated maximum heap size is very likely to be able to throw an out-of-memory error before exceeding the environment's memory limits.
+通过将默认最大堆大小从可用内存的 25% 更改为所有可用内存，存在新启发式方法使用的内存比当前实现更多的风险，因此其他进程可能会内存不足。然而，即使使用 25% 的默认最大堆策略，当多个使用该默认值的 JVM 在同一环境中运行时，已经存在这种风险。此外，动态更新的最大堆大小很可能能够在超出环境的内存限制之前抛出内存不足错误。
