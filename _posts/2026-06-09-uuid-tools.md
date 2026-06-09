@@ -9,15 +9,13 @@ description: 'UUID Tools 简介与使用指南'
 
 # UUID Tools: 一个现代化的 Java UUID 工具库
 
-最近，我发现 Java 标准库的 `java.util.UUID` 提供的功能不够丰富。
+最近，我发现 Java 标准库的 `java.util.UUID` 存在很多问题，无法满足很多场景需求，例如：
 
-`java.util.UUID` 从 Java 1.5 开始就存在，但它的 API 一直相当克制：生成方面主要提供 `randomUUID()` 和 `nameUUIDFromBytes(byte[])`，分别对应 UUID v4 和 v3；Java 26 虽然补充了 `UUID.ofEpochMillis(long)` 用于构造 UUID v7，但仍然缺少很多常见需求，例如：
-
-- 不支持生成 UUID v1/v2/v5/v6/v8；
-- `randomUUID()` 固定使用加密强随机源，吞吐与行为都不便控制；
-- `UUID.fromString(String)` 只接受标准的带连字符格式；
-- 只能从 v1 UUID 中提取时间戳、clock sequence 和 node，不支持 v6/v7 等新的时间有序 UUID；
-- 默认的 `compareTo` 方法把两个 64 位半区当作有符号整数比较，不符合通常把 UUID 视作无符号 128 位整数的排序习惯。
+- 不支持生成 UUID v1/v2/v5/v6/v8，而且从 Java 26 开始才支持生成 UUID v7；
+- `randomUUID()` 固定使用全局共享的 `SecureRandom`，性能较差，行为也难以控制；
+- `UUID.fromString(String)` 只能解析带连字符格式的 UUID；
+- 只能从 v1 UUID 中提取时间戳、clock sequence 和 node，不支持从其他版本的 UUID 中提取信息；
+- 默认的 `compareTo` 方法有明显缺陷，不符合常规的排序习惯。
 
 虽然现在已经有 [JUG](https://github.com/cowtowncoder/java-uuid-generator) 和 [UUID Creator](https://github.com/f4b6a3/uuid-creator)，
 不过它们还是略显重量级，并且 API 较为复杂。
