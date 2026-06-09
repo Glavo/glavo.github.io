@@ -11,23 +11,22 @@ published: false
 
 原文链接：[Optimizing GPU Programs from Java using Babylon and HAT](https://openjdk.org/projects/babylon/articles/hat-matmul/hat-matmul)
 
-## Introduction
+## 简介
 
-The project [Babylon](https://github.com/openjdk/babylon) is a new OpenJDK
-project with the goal of enhancing Java reflection, allowing to reflect code
-from Java methods and Java lambdas, and being able to query their symbolic
-representation, called code models.
-These code models can be used at runtime to modify the code, perform
-optimizations, and/or perform code transformations to other programming models.
-Furthermore, code reflection allows Java developers to interact with foreign
-programming models and foreign programming languages without using any 3rd party
-libraries.
+[Babylon](https://github.com/openjdk/babylon) 是一个新的 OpenJDK 项目，旨在增强 Java 的代码反射功能，
+使其能够反射 Java 方法体和 Lambda 表达式的代码，并查询代码的符号表示。
+我们将代码的这种符号表示称为**代码模型（Code Model）**。
 
-One of the foreign programming environments we are exploring in the project
-Babylon is the GPU environment through the CUDA and OpenCL programming models,
-called [HAT](https://github.com/openjdk/babylon/tree/code-reflection/hat) (
-Heterogeneous Accelerator Toolkit). The goal for HAT is to be able to offload
-and run efficient parallel workloads on hardware accelerators.
+代码模型可以用于在运行时修改代码、执行优化，以及将代码转换为其他编程模型。
+
+此外，代码反射允许 Java 开发者无需使用任何第三方库即可与外部编程模型以及外部编程语言交互。
+
+在 Babylon 项目中，我们正在探索的外部编程环境之一是基于 CUDA 和 OpenCL 编程模型的 GPU 环境，称为 [HAT](https://github.com/openjdk/babylon/tree/code-reflection/hat)（异构加速器工具包，Heterogeneous Accelerator Toolkit）。
+HAT 的目标是能够将工作负载卸载到硬件加速器上并高效运行。
+
+本文旨在探讨以下两个问题：
+
+1. 是否可以使用 Java 构造编写适用于 GPU 的并行程序？
 
 Through this article, we want to tackle these two questions:
 
